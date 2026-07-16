@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Dessert Portrait Studio</title>
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FEFAE0;       /* Soft Vanilla */
+            --primary: #D4A373;        /* Warm Caramel */
+            --secondary: #FAEDCD;      /* Cream Custard */
+            --text-dark: #4A3E3D;      /* Dark Chocolate */
+            --accent: #E8A598;         /* Strawberry Pink */
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(139, 115, 85, 0.1);
+            width: 100%;
+            max-width: 950px;
+            padding: 30px;
+            border: 4px solid var(--secondary);
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: #8c7a6b;
+            font-size: 0.95rem;
+        }
+
+        /* Workspace Grid */
+        .workspace {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .controls-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Drag/Drop area */
+        .upload-box {
+            border: 3px dashed var(--accent);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #FFFDF9;
+            transition: all 0.3s ease;
+        }
+
+        .upload-box:hover {
+            background-color: var(--secondary);
+            border-color: var(--primary);
+        }
+
+        .upload-box input[type="file"] {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        /* Buttons Style */
+        .btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background-color: #d8897c;
+        }
+
+        .btn-ai {
+            background-color: #6C5CE7;
+            color: #fff;
+            padding: 14px 20px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.25);
+        }
+
+        .btn-ai:hover {
+            background-color: #5b4bc4;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        input[type="range"], select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            outline: none;
+            background-color: #FFFDF9;
+        }
+
+        /* Color selection buttons */
+        .color-palette {
+            display: flex;
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .color-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+        }
+
+        .color-btn:hover, .color-btn.active {
+            transform: scale(1.15);
+            border-color: var(--text-dark);
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        }
+
+        /* Passport preview canvas wrapper */
+        .preview-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFFDF9;
+            border: 2px solid var(--secondary);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        #passportCanvas {
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            max-width: 100%;
+            height: auto;
+            background-color: #fff;
+        }
+
+        .preview-title {
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        /* Generated Sheet Preview */
+        .sheet-section {
+            margin-top: 40px;
+            border-top: 3px solid var(--secondary);
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        .sheet-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        #sheetCanvas {
+            border: 1px solid #ccc;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #fff;
+            max-width: 100%;
+        }
+
+        /* Interactive loading screen for AI */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(254, 250, 224, 0.97);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            border: 8px solid var(--secondary);
+            border-top: 8px solid #6C5CE7;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-align: center;
+            max-width: 80%;
+            line-height: 1.6;
+        }
+
+        .progress-bar-container {
+            width: 300px;
+            height: 12px;
+            background-color: #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #6C5CE7;
+            transition: width 0.3s;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* Print Media CSS */
+        @media print {
+            body {
+                background: #FFFFFF !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .container, header, .workspace, .btn-group, .sheet-section h2, .sheet-section p, .loading-overlay {
+                display: none !important;
+            }
+            #sheetCanvas {
+                display: block !important;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 100vw !important;
+                max-width: 100% !important;
+                height: auto !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Dynamic AI Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingStatus">AI Background Remover is starting...</div>
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+</div>
+
+<div class="container">
+    <header>
+        <h1>🧁 AI Dessert Portrait Studio</h1>
+        <p>Pehle tasveer upload karein, phir zaroorat ke mutabiq AI background remove karein.</p>
+    </header>
+
+    <div class="workspace">
+        <!-- Controls Section -->
+        <div class="controls-section">
+            <!-- Fast Instant Upload Box -->
+            <div class="upload-box" id="uploadBox" onclick="document.getElementById('imageLoader').click()">
+                <div class="upload-icon">📷</div>
+                <p>Click kar ke Photo select karein (Yeh Fauran Load Hogi)</p>
+                <small style="color: #a38d7a;">PNG, JPG ya JPEG format upload karein</small>
+                <input type="file" id="imageLoader" accept="image/*">
+            </div>
+
+            <!-- Optional AI Removal Button (Triggers only on click) -->
+            <div class="control-group" id="aiButtonContainer" style="display: none;">
+                <button class="btn btn-ai" id="removeBgBtn">🪄 AI Se Background Remove Karein (Optional)</button>
+                <p style="font-size: 0.8rem; color: #8c7a6b; margin-top: 3px; line-height: 1.4;">
+                    Agar aap ka background pehle se saaf hai ya remove nahi karna chahte, toh aap is button ko chhod sakte hain.
+                </p>
+            </div>
+
+            <!-- Position Controllers -->
+            <div class="control-group">
+                <label>🔍 Zoom Image:</label>
+                <input type="range" id="zoomRange" min="10" max="300" value="100">
+            </div>
+
+            <div class="control-group">
+                <label>↔️ Move Horizontal (X-Offset):</label>
+                <input type="range" id="xRange" min="-200" max="200" value="0">
+            </div>
+
+            <div class="control-group">
+                <label>↕️ Move Vertical (Y-Offset):</label>
+                <input type="range" id="yRange" min="-200" max="200" value="0">
+            </div>
+
+            <!-- Background Color Selector -->
+            <div class="control-group">
+                <label>🎨 New Background Color (Work only on transparent background):</label>
+                <div class="color-palette">
+                    <button class="color-btn active" style="background-color: #FFFFFF;" data-color="#FFFFFF"></button>
+                    <button class="color-btn" style="background-color: #B9D9EB;" data-color="#B9D9EB"></button> <!-- Light Blue -->
+                    <button class="color-btn" style="background-color: #0033aa;" data-color="#0033aa"></button> <!-- Blue -->
+                    <button class="color-btn" style="background-color: #F7CAD0;" data-color="#F7CAD0"></button> <!-- Pink -->
+                    <button class="color-btn" style="background-color: #E2E2E2;" data-color="#E2E2E2"></button> <!-- Grey -->
+                </div>
+            </div>
+
+            <!-- Quantity Selector -->
+            <div class="control-group">
+                <label>🔢 Kitni Photos Chahiyen?</label>
+                <select id="quantitySelect">
+                    <option value="4">4 Photos</option>
+                    <option value="8" selected>8 Photos (Recommended)</option>
+                    <option value="12">12 Photos</option>
+                    <option value="16">16 Photos</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Single Preview Section -->
+        <div class="preview-section">
+            <div class="preview-title">Preview (35mm x 45mm)</div>
+            <canvas id="passportCanvas" width="350" height="450"></canvas>
+        </div>
+    </div>
+
+    <!-- Printable Grid Sheet -->
+    <div class="sheet-section">
+        <h2>🖨️ Generated Sheet</h2>
+        <p style="font-size: 0.9rem; color: #a38d7a; margin-bottom: 15px;">Aap is sheet ko direct print ya download kar sakte hain.</p>
+        <div class="sheet-container">
+            <canvas id="sheetCanvas" width="1200" height="800"></canvas>
+        </div>
+        <div class="btn-group">
+            <button class="btn" id="downloadBtn">📥 Download JPEG</button>
+            <button class="btn btn-accent" id="printBtn">🖨️ Sheet Print Karein</button>
+        </div>
+    </div>
+</div>
+
+<!-- AI module import using ES Modules CDN -->
+<script type="module">
+    import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/+esm';
+
+    const imageLoader = document.getElementById('imageLoader');
+    const passportCanvas = document.getElementById('passportCanvas');
+    const sheetCanvas = document.getElementById('sheetCanvas');
+    const pCtx = passportCanvas.getContext('2d');
+    const sCtx = sheetCanvas.getContext('2d');
+
+    // Controls
+    const zoomRange = document.getElementById('zoomRange');
+    const xRange = document.getElementById('xRange');
+    const yRange = document.getElementById('yRange');
+    const quantitySelect = document.getElementById('quantitySelect');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const printBtn = document.getElementById('printBtn');
+    const colorButtons = document.querySelectorAll('.color-btn');
+    const removeBgBtn = document.getElementById('removeBgBtn');
+    const aiButtonContainer = document.getElementById('aiButtonContainer');
+
+    // Loading overlay
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const loadingStatus = document.getElementById('loadingStatus');
+    const progressBar = document.getElementById('progressBar');
+
+    let originalFile = null;
+    let displayImg = new Image();
+    let imgLoaded = false;
+    let bgColor = '#FFFFFF';
+
+    window.onload = function() {
+        drawPlaceholder();
+        generateGridSheet();
+    };
+
+    function drawPlaceholder() {
+        pCtx.fillStyle = '#FFFFFF';
+        pCtx.fillRect(0, 0, passportCanvas.width, passportCanvas.height);
+        pCtx.fillStyle = '#4A3E3D';
+        pCtx.font = '16px Poppins';
+        pCtx.textAlign = 'center';
+        pCtx.fillText('Tasveer Upload Karein', passportCanvas.width / 2, passportCanvas.height / 2);
+    }
+
+    // Step 1: Fast Instant Upload (Baghair kisi AI delay ke image show hogi)
+    imageLoader.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        originalFile = file;
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+            displayImg = new Image();
+            displayImg.onload = function() {
+                imgLoaded = true;
+                // Reset sliders
+                zoomRange.value = 100;
+                xRange.value = 0;
+                yRange.value = 0;
+                
+                updateCanvas();
+                // Show AI Option button now that image is loaded
+                aiButtonContainer.style.display = 'block';
+            }
+            displayImg.src = event.target.result;
+        }
+        reader.readAsDataURL(file);
+    });
+
+    // Step 2: Click to trigger AI Background Removal (Optional)
+    removeBgBtn.addEventListener('click', async function() {
+        if (!originalFile) return;
+
+        // Warning if page is running under file:// protocol
+        if (window.location.protocol === 'file:') {
+            const acceptLocalWarning = confirm(
+                "Aap is file ko direct browser mein open kar rahe hain (file://).\n\n" +
+                "Chrome browser security policy ki wajah se locally AI features block ho sakte hain.\n" +
+                "Agar processing complete na ho, toh please is file ko VS Code Live Server par chalayein.\n\n" +
+                "Kya aap continue karna chahte hain?"
+            );
+            if (!acceptLocalWarning) return;
+        }
+
+        loadingOverlay.style.display = 'flex';
+        loadingStatus.innerHTML = 'AI Starting background removal... Please wait.<br><small style="font-size:0.85rem; opacity:0.8;">Pehli baar download mein thoda waqt lagta hai.</small>';
+        progressBar.style.width = '10%';
+
+        try {
+            const config = {
+                progress: (key, current, total) => {
+                    const percentage = Math.round((current / total) * 100);
+                    loadingStatus.innerHTML = `AI Processing Model... (${percentage}%) <br><small style="font-size:0.85rem; opacity:0.8;">Pehli baar model data load ho raha hai...</small>`;
+                    progressBar.style.width = `${percentage}%`;
+                }
+            };
+
+            // Run AI removal
+            const resultBlob = await removeBackground(originalFile, config);
+            const url = URL.createObjectURL(resultBlob);
+
+            const aiImg = new Image();
+            aiImg.onload = function() {
+                displayImg = aiImg; // Replace original image with transparent AI image
+                updateCanvas();
+                loadingOverlay.style.display = 'none';
+                aiButtonContainer.style.display = 'none'; // Hide button after success
+            };
+            aiImg.src = url;
+
+        } catch (error) {
+            console.error(error);
+            alert("AI fail ho gaya. Chrome Security ne local script fetch block kar di hai.\n\nFikar mat karein, aap is original image ko adjust kar ke bhi print kar sakte hain!");
+            loadingOverlay.style.display = 'none';
+        }
+    });
+
+    // Handle background color selection
+    colorButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            colorButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            bgColor = this.getAttribute('data-color');
+            updateCanvas();
+        });
+    });
+
+    // Handle adjust sliders
+    [zoomRange, xRange, yRange].forEach(item => {
+        item.addEventListener('input', updateCanvas);
+    });
+
+    quantitySelect.addEventListener('change', generateGridSheet);
+
+    function updateCanvas() {
+        if (!imgLoaded) {
+            drawPlaceholder();
+            return;
+        }
+
+        pCtx.clearRect(0, 0, passportCanvas.width, passportCanvas.height);
+        
+        // Apply solid custom background color
+        pCtx.fillStyle = bgColor;
+        pCtx.fillRect(0, 0, passportCanvas.width, passportCanvas.height);
+
+        const scale = zoomRange.value / 100;
+        const xOffset = parseInt(xRange.value);
+        const yOffset = parseInt(yRange.value);
+
+        const imgRatio = displayImg.width / displayImg.height;
+        const canvasRatio = passportCanvas.width / passportCanvas.height;
+        let drawWidth, drawHeight;
+
+        if (imgRatio > canvasRatio) {
+            drawHeight = passportCanvas.height * scale;
+            drawWidth = drawHeight * imgRatio;
+        } else {
+            drawWidth = passportCanvas.width * scale;
+            drawHeight = drawWidth / imgRatio;
+        }
+
+        const xPos = (passportCanvas.width - drawWidth) / 2 + xOffset;
+        const yPos = (passportCanvas.height - drawHeight) / 2 + yOffset;
+
+        // Draw current active image (Original or AI cutout)
+        pCtx.drawImage(displayImg, xPos, yPos, drawWidth, drawHeight);
+
+        generateGridSheet();
+    }
+
+    // Grid Sheet Creator for High Quality Print
+    function generateGridSheet() {
+        sCtx.clearRect(0, 0, sheetCanvas.width, sheetCanvas.height);
+        
+        sCtx.fillStyle = '#FFFFFF';
+        sCtx.fillRect(0, 0, sheetCanvas.width, sheetCanvas.height);
+
+        const qty = parseInt(quantitySelect.value);
+        
+        const photoWidth = 240; 
+        const photoHeight = 310;
+        const marginX = 40;
+        const marginY = 40;
+        const gap = 30;
+
+        let cols = 4;
+        if (qty <= 4) cols = 2;
+        
+        for (let i = 0; i < qty; i++) {
+            const row = Math.floor(i / cols);
+            const col = i % cols;
+
+            const x = marginX + col * (photoWidth + gap);
+            const y = marginY + row * (photoHeight + gap);
+
+            // Scissor line outline
+            sCtx.strokeStyle = '#E2E2E2';
+            sCtx.lineWidth = 2;
+            sCtx.strokeRect(x - 2, y - 2, photoWidth + 4, photoHeight + 4);
+
+            sCtx.drawImage(passportCanvas, x, y, photoWidth, photoHeight);
+        }
+    }
+
+    // Download Handler
+    downloadBtn.addEventListener('click', function() {
+        if (!imgLoaded) {
+            alert("Pehle tasveer upload karein!");
+            return;
+        }
+        const link = document.createElement('a');
+        link.download = 'passport_photos_sheet.jpg';
+        link.href = sheetCanvas.toDataURL('image/jpeg', 0.95);
+        link.click();
+    });
+
+    // Direct Browser Print Setup
+    printBtn.addEventListener('click', function() {
+        if (!imgLoaded) {
+            alert("Pehle tasveer upload karein!");
+            return;
+        }
+        window.print();
+    });
+</script>
+
+</body>
+</html>
