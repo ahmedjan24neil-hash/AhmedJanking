@@ -1,655 +1,785 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Dessert Portrait Studio</title>
-    <!-- Google Fonts for typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Balochistan Photo Editing & IT Services | Official Agency</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        fireOrange: '#ff5722',
+                        waterCyan: '#00f2fe',
+                        goldenSun: '#fbbf24',
+                        emeraldGreen: '#10b981',
+                        darkNavy: '#0a0f1d',
+                        darkCard: '#111827'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- EmailJS Official SDK With Updated Public Key -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Updated Public Key
+            emailjs.init("QtaualnwCICRiFDyw");
+        })();
+    </script>
+
     <style>
-        :root {
-            --bg-color: #FEFAE0;       /* Soft Vanilla */
-            --primary: #D4A373;        /* Warm Caramel */
-            --secondary: #FAEDCD;      /* Cream Custard */
-            --text-dark: #4A3E3D;      /* Dark Chocolate */
-            --accent: #E8A598;         /* Strawberry Pink */
-            --white: #FFFFFF;
-        }
-
-        * {
+        * { 
+            font-family: 'Poppins', sans-serif; 
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
         }
 
+        /* REAL AGENCY DARK ELEMENTAL BACKGROUND */
         body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #080c17;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(255, 87, 34, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 20%, rgba(0, 242, 254, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(251, 191, 36, 0.12) 0%, transparent 45%);
+            color: #f3f4f6;
             min-height: 100vh;
         }
 
-        .container {
-            background-color: var(--white);
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(139, 115, 85, 0.1);
-            width: 100%;
-            max-width: 950px;
-            padding: 30px;
-            border: 4px solid var(--secondary);
-            position: relative;
+        /* HIGH-END SLEEK GLASS CARDS (NO-LAG OPTIMIZED) */
+        .pro-glass {
+            background: rgba(17, 24, 39, 0.90);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.2s ease, transform 0.2s ease;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        header h1 {
-            color: var(--primary);
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-
-        header p {
-            color: #8c7a6b;
-            font-size: 0.95rem;
-        }
-
-        /* Workspace Grid */
-        .workspace {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .workspace {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .controls-section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* Drag/Drop area */
-        .upload-box {
-            border: 3px dashed var(--accent);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            cursor: pointer;
-            background-color: #FFFDF9;
-            transition: all 0.3s ease;
-        }
-
-        .upload-box:hover {
-            background-color: var(--secondary);
-            border-color: var(--primary);
-        }
-
-        .upload-box input[type="file"] {
-            display: none;
-        }
-
-        .upload-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-
-        /* Buttons Style */
-        .btn {
-            background-color: var(--primary);
-            color: var(--white);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 12px;
-            font-size: 1rem;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn:hover {
-            background-color: var(--text-dark);
+        .pro-glass:hover {
+            border-color: rgba(255, 87, 34, 0.5);
             transform: translateY(-2px);
         }
 
-        .btn-accent {
-            background-color: var(--accent);
+        /* GRADIENT TEXT */
+        .text-gradient {
+            background: linear-gradient(135deg, #ff5722 0%, #fbbf24 35%, #10b981 70%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .btn-accent:hover {
-            background-color: #d8897c;
+        /* GRADIENT BUTTON */
+        .btn-gradient {
+            background: linear-gradient(90deg, #ff5722 0%, #d97706 40%, #00f2fe 100%);
+            transition: all 0.2s ease;
+        }
+        .btn-gradient:hover {
+            opacity: 0.95;
+            box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
         }
 
-        .btn-ai {
-            background-color: #6C5CE7;
-            color: #fff;
-            padding: 14px 20px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.25);
+        /* LIGHTWEIGHT & FAST LOGO GLOW */
+        .logo-glow {
+            filter: drop-shadow(0px 4px 12px rgba(255, 87, 34, 0.4));
+            transition: transform 0.3s ease;
+        }
+        .logo-glow:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0px 6px 18px rgba(0, 242, 254, 0.6));
         }
 
-        .btn-ai:hover {
-            background-color: #5b4bc4;
+        /* SMOOTH FLOATING LOGO ANIMATION */
+        .logo-float {
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 15px rgba(255, 87, 34, 0.3));
+            animation: floatSmooth 4s ease-in-out infinite;
+        }
+        @keyframes floatSmooth {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .control-group label {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        input[type="range"], select {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid var(--secondary);
-            border-radius: 10px;
-            outline: none;
-            background-color: #FFFDF9;
-        }
-
-        /* Color selection buttons */
-        .color-palette {
-            display: flex;
-            gap: 12px;
-            margin-top: 5px;
-        }
-
-        .color-btn {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            border: 2px solid #ddd;
-            cursor: pointer;
-            transition: transform 0.2s;
-            box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
-        }
-
-        .color-btn:hover, .color-btn.active {
-            transform: scale(1.15);
-            border-color: var(--text-dark);
-            box-shadow: 0 0 8px rgba(0,0,0,0.2);
-        }
-
-        /* Passport preview canvas wrapper */
-        .preview-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #FFFDF9;
-            border: 2px solid var(--secondary);
-            border-radius: 16px;
-            padding: 20px;
-        }
-
-        #passportCanvas {
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            max-width: 100%;
-            height: auto;
-            background-color: #fff;
-        }
-
-        .preview-title {
-            margin-bottom: 15px;
-            font-weight: 500;
-            color: var(--primary);
-        }
-
-        /* Generated Sheet Preview */
-        .sheet-section {
-            margin-top: 40px;
-            border-top: 3px solid var(--secondary);
-            padding-top: 30px;
-            text-align: center;
-        }
-
-        .sheet-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-            overflow-x: auto;
-        }
-
-        #sheetCanvas {
-            border: 1px solid #ccc;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            background: #fff;
-            max-width: 100%;
-        }
-
-        /* Interactive loading screen for AI */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(254, 250, 224, 0.97);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .spinner {
-            border: 8px solid var(--secondary);
-            border-top: 8px solid #6C5CE7;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--text-dark);
-            text-align: center;
-            max-width: 80%;
-            line-height: 1.6;
-        }
-
-        .progress-bar-container {
-            width: 300px;
-            height: 12px;
-            background-color: #ddd;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-top: 15px;
-        }
-
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background-color: #6C5CE7;
-            transition: width 0.3s;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        /* Print Media CSS */
-        @media print {
-            body {
-                background: #FFFFFF !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            .container, header, .workspace, .btn-group, .sheet-section h2, .sheet-section p, .loading-overlay {
-                display: none !important;
-            }
-            #sheetCanvas {
-                display: block !important;
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-                width: 100vw !important;
-                max-width: 100% !important;
-                height: auto !important;
-                box-shadow: none !important;
-                border: none !important;
-            }
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #080c17; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(#ff5722, #10b981, #00f2fe); border-radius: 4px; }
     </style>
 </head>
-<body>
+<body class="min-h-screen relative overflow-x-hidden">
 
-<!-- Dynamic AI Loading Overlay -->
-<div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner"></div>
-    <div class="loading-text" id="loadingStatus">AI Background Remover is starting...</div>
-    <div class="progress-bar-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-</div>
-
-<div class="container">
-    <header>
-        <h1>🧁 AI Dessert Portrait Studio</h1>
-        <p>Pehle tasveer upload karein, phir zaroorat ke mutabiq AI background remove karein.</p>
-    </header>
-
-    <div class="workspace">
-        <!-- Controls Section -->
-        <div class="controls-section">
-            <!-- Fast Instant Upload Box -->
-            <div class="upload-box" id="uploadBox" onclick="document.getElementById('imageLoader').click()">
-                <div class="upload-icon">📷</div>
-                <p>Click kar ke Photo select karein (Yeh Fauran Load Hogi)</p>
-                <small style="color: #a38d7a;">PNG, JPG ya JPEG format upload karein</small>
-                <input type="file" id="imageLoader" accept="image/*">
+    <!-- NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 w-full z-50 pro-glass border-b border-white/10 px-4 md:px-8 py-2.5">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <!-- CLEAN RELIABLE PNG LOGO -->
+            <a href="#" class="text-lg md:text-2xl font-extrabold text-gradient flex items-center gap-3">
+                <img src="https://cdn.jsdelivr.net/gh/ahmedjan24neil-hash/website-pic@main/LOGONew.png" 
+                     onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/ahmedjan24neil-hash/website-pic/main/LOGONew.png';"
+                     alt="Balochistan Photo Editing Logo" 
+                     class="h-10 md:h-12 w-auto object-contain logo-glow">
+                <span class="tracking-wide">Balochistan IT & Editing</span>
+            </a>
+            
+            <!-- Desktop Nav Links -->
+            <div class="hidden lg:flex space-x-6 items-center font-medium text-xs text-gray-200">
+                <a href="#hero" class="hover:text-amber-400 transition">Home</a>
+                <a href="#calculator" class="text-orange-400 hover:text-amber-300 font-bold transition flex items-center gap-1"><i class="fa-solid fa-calculator text-xs"></i> Live Calculator</a>
+                <a href="#community" class="hover:text-emerald-400 transition">Community Links</a>
+                <a href="#about" class="hover:text-cyan-400 transition">About Academy</a>
+                <a href="#courses" class="hover:text-amber-400 transition">Courses</a>
+                <a href="#software-rates" class="hover:text-emerald-400 transition">Software Rates</a>
+                <a href="#windows-packages" class="hover:text-cyan-400 transition">Windows Combos</a>
+                <a href="#contact" class="px-5 py-2 rounded-xl btn-gradient font-bold text-white shadow-lg text-xs">Book Service</a>
             </div>
 
-            <!-- Optional AI Removal Button (Triggers only on click) -->
-            <div class="control-group" id="aiButtonContainer" style="display: none;">
-                <button class="btn btn-ai" id="removeBgBtn">🪄 AI Se Background Remove Karein (Optional)</button>
-                <p style="font-size: 0.8rem; color: #8c7a6b; margin-top: 3px; line-height: 1.4;">
-                    Agar aap ka background pehle se saaf hai ya remove nahi karna chahte, toh aap is button ko chhod sakte hain.
-                </p>
+            <!-- Mobile Menu Toggle -->
+            <div class="lg:hidden">
+                <button id="menuBtn" class="text-2xl text-amber-400 p-1">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
             </div>
+        </div>
 
-            <!-- Position Controllers -->
-            <div class="control-group">
-                <label>🔍 Zoom Image:</label>
-                <input type="range" id="zoomRange" min="10" max="300" value="100">
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden lg:hidden flex-col gap-3 pt-4 pb-2 border-t border-white/10 mt-3 text-sm">
+            <a href="#hero" class="hover:text-amber-400">Home</a>
+            <a href="#calculator" class="text-orange-400 font-bold">🧮 Price Calculator</a>
+            <a href="#community" class="hover:text-emerald-400">Social Links & Groups</a>
+            <a href="#about" class="hover:text-cyan-400">About Academy</a>
+            <a href="#courses" class="hover:text-amber-400">Courses</a>
+            <a href="#software-rates" class="hover:text-emerald-400">Software Rates</a>
+            <a href="#windows-packages" class="hover:text-cyan-400">Windows Combos</a>
+            <a href="#contact" class="hover:text-amber-400">Contact Form</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative pt-28 pb-16 px-4 md:px-8 flex items-center justify-center min-h-[90vh] overflow-hidden">
+        
+        <!-- BACKGROUND WATERMARK LOGO -->
+        <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-15">
+            <img src="https://cdn.jsdelivr.net/gh/ahmedjan24neil-hash/website-pic@main/LOGONew.png" 
+                 onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/ahmedjan24neil-hash/website-pic/main/LOGONew.png';"
+                 alt="Background Watermark Logo" 
+                 class="w-[450px] h-[450px] md:w-[700px] md:h-[700px] object-contain">
+        </div>
+
+        <!-- HERO CONTENT CARD -->
+        <div class="max-w-5xl mx-auto text-left relative z-10 w-full">
+            <div class="pro-glass p-6 md:p-10 rounded-3xl border border-orange-500/30">
+                
+                <div class="grid lg:grid-cols-12 gap-6 items-center">
+                    
+                    <!-- Left Hero Text Content -->
+                    <div class="lg:col-span-8">
+                        <!-- LIVE AVAILABILITY BADGE -->
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 border border-emerald-400/40 text-emerald-300">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> 🟢 Services Available Today in Balochistan
+                            </span>
+                            <span class="text-xs font-bold text-amber-400 flex items-center gap-1">
+                                <i class="fa-solid fa-star"></i> 4.9/5 Rating (500+ Happy Clients)
+                            </span>
+                        </div>
+                        
+                        <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+                            Professional Photo Editing & <br class="hidden md:block"/>
+                            <span class="text-gradient">Complete Computer Software Solutions</span>
+                        </h1>
+                        
+                        <p class="text-gray-300 max-w-2xl text-sm md:text-base leading-relaxed mb-8">
+                            Become a skilled Photo Editor & Computer Expert. Get original Windows 7, 8, 10, 11 setup & essential software packages installed directly at your home or office!
+                        </p>
+                        
+                        <!-- ACTION BUTTONS -->
+                        <div class="flex flex-wrap items-center gap-4 mb-4">
+                            <a href="#calculator" class="px-7 py-3.5 rounded-xl btn-gradient font-bold text-white text-sm shadow-xl flex items-center gap-2">
+                                <i class="fa-solid fa-calculator"></i> Build Package & Calculate Price
+                            </a>
+                            <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20information%20about%20Windows%20Setup%20and%20Editing" target="_blank" class="px-7 py-3.5 rounded-xl border border-white/20 hover:border-emerald-400 bg-white/5 font-bold text-sm text-white flex items-center gap-2 transition">
+                                <i class="fa-brands fa-whatsapp text-xl text-emerald-400"></i> Direct WhatsApp Chat
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Side Official Logo Showcase -->
+                    <div class="lg:col-span-4 flex justify-center items-center py-4">
+                        <div class="p-4 rounded-2xl bg-slate-900/60 border border-orange-500/20 flex flex-col items-center">
+                            <img src="https://cdn.jsdelivr.net/gh/ahmedjan24neil-hash/website-pic@main/LOGONew.png" 
+                                 onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/ahmedjan24neil-hash/website-pic/main/LOGONew.png';"
+                                 alt="Balochistan Official Logo Showcase" 
+                                 class="w-44 md:w-56 h-auto object-contain logo-float">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- REAL AGENCY TRUST GUARANTEES -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 mt-4 border-t border-white/10 text-xs font-semibold text-gray-200">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <span>100% Virus-Free & Genuine Setup</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 shrink-0">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <span>1-on-1 Practical Training</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <span>Fast Doorstep Service</span>
+                    </div>
+                </div>
+
             </div>
+        </div>
+    </section>
 
-            <div class="control-group">
-                <label>↔️ Move Horizontal (X-Offset):</label>
-                <input type="range" id="xRange" min="-200" max="200" value="0">
+    <!-- INTERACTIVE LIVE PRICE CALCULATOR -->
+    <section id="calculator" class="py-12 px-4 md:px-8 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="pro-glass p-6 md:p-10 rounded-3xl border border-orange-500/30">
+                
+                <div class="text-center mb-8">
+                    <span class="text-xs font-bold text-orange-400 uppercase tracking-widest bg-orange-500/10 px-3 py-1 rounded-full border border-orange-400/30">Custom Package Builder</span>
+                    <h2 class="text-2xl md:text-4xl font-bold mt-2 text-gradient">Interactive Price Calculator</h2>
+                    <p class="text-gray-400 text-xs md:text-sm mt-1">Select your desired Windows and softwares to see live total price!</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    
+                    <!-- Windows OS Selection -->
+                    <div>
+                        <h4 class="font-bold text-sm text-cyan-300 mb-3 flex items-center gap-2">
+                            <i class="fa-brands fa-windows text-base"></i> Select Windows OS:
+                        </h4>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-cyan-400">
+                                <span class="flex items-center gap-2"><input type="radio" name="winSelect" value="600" data-title="Windows 7" class="accent-cyan-400" onchange="calcTotal()"> Windows 7 OS</span>
+                                <span class="font-bold text-cyan-400">Rs 600</span>
+                            </label>
+                            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-cyan-400">
+                                <span class="flex items-center gap-2"><input type="radio" name="winSelect" value="700" data-title="Windows 8" class="accent-cyan-400" onchange="calcTotal()"> Windows 8 OS</span>
+                                <span class="font-bold text-cyan-400">Rs 700</span>
+                            </label>
+                            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-cyan-400">
+                                <span class="flex items-center gap-2"><input type="radio" name="winSelect" value="900" data-title="Windows 10" class="accent-cyan-400" checked onchange="calcTotal()"> Windows 10 OS (Recommended)</span>
+                                <span class="font-bold text-cyan-400">Rs 900</span>
+                            </label>
+                            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-cyan-400">
+                                <span class="flex items-center gap-2"><input type="radio" name="winSelect" value="1300" data-title="Windows 11" class="accent-cyan-400" onchange="calcTotal()"> Windows 11 OS</span>
+                                <span class="font-bold text-cyan-400">Rs 1,300</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Software Selection -->
+                    <div>
+                        <h4 class="font-bold text-sm text-amber-300 mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-boxes-packing text-base"></i> Select Softwares:
+                        </h4>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
+                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="400" data-title="MS Office 2013" checked onchange="calcTotal()"> MS Office 2013</span>
+                                <span class="font-bold text-amber-400">Rs 400</span>
+                            </label>
+                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
+                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="200" data-title="Typing Master Pro" checked onchange="calcTotal()"> Typing Master Pro</span>
+                                <span class="font-bold text-amber-400">Rs 200</span>
+                            </label>
+                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
+                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="400" data-title="CorelDraw X5" checked onchange="calcTotal()"> CorelDraw Graphics X5</span>
+                                <span class="font-bold text-amber-400">Rs 400</span>
+                            </label>
+                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
+                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="400" data-title="Adobe Photoshop" checked onchange="calcTotal()"> Adobe Photoshop</span>
+                                <span class="font-bold text-amber-400">Rs 400</span>
+                            </label>
+                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
+                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="200" data-title="InPage Urdu" checked onchange="calcTotal()"> InPage Urdu Composing</span>
+                                <span class="font-bold text-amber-400">Rs 200</span>
+                            </label>
+                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
+                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="150" data-title="Google Chrome" checked onchange="calcTotal()"> Google Chrome Browser</span>
+                                <span class="font-bold text-amber-400">Rs 150</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- LIVE TOTAL PRICE & DIRECT ORDER -->
+                <div class="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left bg-black/40 p-5 rounded-2xl border border-orange-500/30">
+                    <div>
+                        <span class="text-xs text-gray-400">Estimated Total Cost:</span>
+                        <div id="liveTotal" class="text-3xl font-extrabold text-yellow-400">Rs 2,650</div>
+                        <p id="selectedSummary" class="text-[11px] text-emerald-400 mt-1">Windows 10 + 6 Softwares Package</p>
+                    </div>
+                    <button onclick="orderCalcPackage()" class="px-7 py-3.5 rounded-xl btn-gradient font-bold text-white text-xs shadow-lg flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Order This Package on WhatsApp
+                    </button>
+                </div>
+
             </div>
+        </div>
+    </section>
 
-            <div class="control-group">
-                <label>↕️ Move Vertical (Y-Offset):</label>
-                <input type="range" id="yRange" min="-200" max="200" value="0">
+    <!-- OFFICIAL COMMUNITY & SOCIAL LINKS -->
+    <section id="community" class="py-12 px-4 md:px-8 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gradient">Official Community Links</h2>
+            <p class="text-center text-gray-400 mb-8 text-xs md:text-sm">Join our official WhatsApp channel, group & YouTube channel for daily updates!</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <!-- 1. Direct WhatsApp -->
+                <a href="https://wa.me/923322718247" target="_blank" class="pro-glass p-5 rounded-2xl flex items-center gap-4 hover:border-emerald-400">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl shrink-0">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">Direct WhatsApp</h4>
+                        <p class="text-xs text-gray-400">Click to Chat</p>
+                    </div>
+                </a>
+
+                <!-- 2. WhatsApp Group -->
+                <a href="https://chat.whatsapp.com/Lqmf9klqyiJ3kLFU87FYpW?s=sh&p=a&ilr=4" target="_blank" class="pro-glass p-5 rounded-2xl flex items-center gap-4 hover:border-cyan-400">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl shrink-0">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">WhatsApp Group</h4>
+                        <p class="text-xs text-gray-400">Join Community</p>
+                    </div>
+                </a>
+
+                <!-- 3. WhatsApp Channel -->
+                <a href="https://whatsapp.com/channel/0029Vb8WlpbHwXbCt86GaR0M" target="_blank" class="pro-glass p-5 rounded-2xl flex items-center gap-4 hover:border-amber-400">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl shrink-0">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">WhatsApp Channel</h4>
+                        <p class="text-xs text-gray-400">Balochistan Photo Editing 🫅🏻</p>
+                    </div>
+                </a>
+
+                <!-- 4. YouTube Channel -->
+                <a href="https://youtube.com/@balochistanphotoediting?si=57gahdOVfFip1iAc" target="_blank" class="pro-glass p-5 rounded-2xl flex items-center gap-4 hover:border-red-500">
+                    <div class="w-12 h-12 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400 text-2xl shrink-0">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm">YouTube Channel</h4>
+                        <p class="text-xs text-gray-400">Subscribe Channel</p>
+                    </div>
+                </a>
+
             </div>
+        </div>
+    </section>
 
-            <!-- Background Color Selector -->
-            <div class="control-group">
-                <label>🎨 New Background Color (Work only on transparent background):</label>
-                <div class="color-palette">
-                    <button class="color-btn active" style="background-color: #FFFFFF;" data-color="#FFFFFF"></button>
-                    <button class="color-btn" style="background-color: #B9D9EB;" data-color="#B9D9EB"></button> <!-- Light Blue -->
-                    <button class="color-btn" style="background-color: #0033aa;" data-color="#0033aa"></button> <!-- Blue -->
-                    <button class="color-btn" style="background-color: #F7CAD0;" data-color="#F7CAD0"></button> <!-- Pink -->
-                    <button class="color-btn" style="background-color: #E2E2E2;" data-color="#E2E2E2"></button> <!-- Grey -->
+    <!-- ABOUT WORKSTATION SECTION -->
+    <section id="about" class="py-12 px-4 md:px-8 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                <div class="pro-glass p-3 rounded-3xl border border-emerald-500/30 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=700&auto=format&fit=crop&q=80" alt="Editing PC Workstation" class="rounded-2xl w-full h-80 object-cover">
+                </div>
+                
+                <div class="pro-glass p-6 md:p-8 rounded-3xl space-y-4">
+                    <span class="text-xs font-bold text-emerald-400 uppercase bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-400/30">IT Workstation & Academy</span>
+                    <h3 class="text-2xl font-bold">Expert Photo Editing & Computer Teacher</h3>
+                    <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+                        Welcome to <strong>Balochistan Photo Editing 🫅🏻</strong>. We provide high-end photo editing setup, PC maintenance, MS Office practical classes, and complete genuine Windows installations.
+                    </p>
+                    <div class="p-3 bg-white/5 rounded-xl border border-white/10 text-xs text-gray-300 space-y-1">
+                        <div><i class="fa-solid fa-envelope text-cyan-400 mr-2"></i> <strong>Email:</strong> Efree341@gmail.com</div>
+                        <div><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> <strong>Contact:</strong> WhatsApp Direct</div>
+                    </div>
+                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20learn%20computer%20and%20editing" target="_blank" class="inline-block px-5 py-2.5 rounded-xl btn-gradient font-bold text-xs text-white">
+                        Enroll in Classes
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COURSES TAUGHT -->
+    <section id="courses" class="py-12 px-4 md:px-8 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gradient">Courses & Training</h2>
+            <p class="text-center text-gray-400 mb-8 text-xs md:text-sm">Practical training for students and job seekers</p>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="pro-glass p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <i class="fa-solid fa-file-word text-4xl text-cyan-400 mb-3"></i>
+                        <h3 class="text-lg font-bold mb-2">MS Office Masterclass</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed mb-4">Word, Excel, PowerPoint, Access & Publisher with practical office work.</p>
+                    </div>
+                    <a href="https://wa.me/923322718247?text=I%20want%20details%20for%20MS%20Office%20Course" target="_blank" class="text-xs font-bold text-amber-400 flex items-center gap-1 hover:underline">
+                        Get Details <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="pro-glass p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <i class="fa-solid fa-wand-magic-sparkles text-4xl text-amber-400 mb-3"></i>
+                        <h3 class="text-lg font-bold mb-2">Photo & Graphic Editing</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed mb-4">Adobe Photoshop editing, photo retouching, CorelDraw logo & flyer design.</p>
+                    </div>
+                    <a href="https://wa.me/923322718247?text=I%20want%20details%20for%20Photo%20Editing%20Course" target="_blank" class="text-xs font-bold text-amber-400 flex items-center gap-1 hover:underline">
+                        Get Details <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="pro-glass p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <i class="fa-solid fa-keyboard text-4xl text-emerald-400 mb-3"></i>
+                        <h3 class="text-lg font-bold mb-2">Typing & InPage Urdu</h3>
+                        <p class="text-gray-300 text-xs leading-relaxed mb-4">English typing speed building + InPage Urdu Composing for official jobs.</p>
+                    </div>
+                    <a href="https://wa.me/923322718247?text=I%20want%20details%20for%20Typing%20Course" target="_blank" class="text-xs font-bold text-amber-400 flex items-center gap-1 hover:underline">
+                        Get Details <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOFTWARE RATES -->
+    <section id="software-rates" class="py-12 px-4 md:px-8 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gradient">Software Installation Rates</h2>
+            <p class="text-center text-gray-400 mb-8 text-xs md:text-sm">Individual software setups for PC & Laptop</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-cyan-400">
+                    <div>
+                        <h4 class="font-bold text-sm">1. MS Office 2013</h4>
+                        <p class="text-[11px] text-gray-400">Word, Excel, PowerPoint</p>
+                    </div>
+                    <span class="text-lg font-bold text-cyan-400">Rs 400</span>
+                </div>
+
+                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-amber-400">
+                    <div>
+                        <h4 class="font-bold text-sm">2. Typing Master Pro</h4>
+                        <p class="text-[11px] text-gray-400">Speed Tool</p>
+                    </div>
+                    <span class="text-lg font-bold text-amber-400">Rs 200</span>
+                </div>
+
+                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-emerald-500">
+                    <div>
+                        <h4 class="font-bold text-sm">3. CorelDraw Graphics X5</h4>
+                        <p class="text-[11px] text-gray-400">Vector Graphic Tool</p>
+                    </div>
+                    <span class="text-lg font-bold text-emerald-400">Rs 400</span>
+                </div>
+
+                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-blue-400">
+                    <div>
+                        <h4 class="font-bold text-sm">4. Adobe Photoshop</h4>
+                        <p class="text-[11px] text-gray-400">Photo Editing</p>
+                    </div>
+                    <span class="text-lg font-bold text-cyan-400">Rs 400</span>
+                </div>
+
+                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-yellow-400">
+                    <div>
+                        <h4 class="font-bold text-sm">5. InPage Urdu</h4>
+                        <p class="text-[11px] text-gray-400">Urdu Composing</p>
+                    </div>
+                    <span class="text-lg font-bold text-yellow-400">Rs 200</span>
+                </div>
+
+                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-orange-500">
+                    <div>
+                        <h4 class="font-bold text-sm">6. Google Chrome</h4>
+                        <p class="text-[11px] text-gray-400">Internet Browser</p>
+                    </div>
+                    <span class="text-lg font-bold text-amber-400">Rs 150</span>
                 </div>
             </div>
 
-            <!-- Quantity Selector -->
-            <div class="control-group">
-                <label>🔢 Kitni Photos Chahiyen?</label>
-                <select id="quantitySelect">
-                    <option value="4">4 Photos</option>
-                    <option value="8" selected>8 Photos (Recommended)</option>
-                    <option value="12">12 Photos</option>
-                    <option value="16">16 Photos</option>
-                </select>
+            <!-- BUNDLE BOX -->
+            <div class="mt-8 pro-glass p-6 rounded-3xl bg-gradient-to-r from-orange-950/40 via-emerald-950/40 to-cyan-950/40 border border-orange-400/40 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <div>
+                    <h3 class="text-xl font-bold text-amber-300">Complete Software Bundle</h3>
+                    <p class="text-xs text-gray-300">All 6 essential softwares installed together!</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl font-bold text-yellow-300 bg-black/50 px-5 py-2 rounded-xl border border-yellow-500/30">Rs 1,750</span>
+                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20order%20Complete%20Software%20Bundle%20(Rs%201750)" target="_blank" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 rounded-xl font-bold text-xs text-white shadow-lg">
+                        Order Bundle
+                    </a>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- Single Preview Section -->
-        <div class="preview-section">
-            <div class="preview-title">Preview (35mm x 45mm)</div>
-            <canvas id="passportCanvas" width="350" height="450"></canvas>
-        </div>
-    </div>
-
-    <!-- Printable Grid Sheet -->
-    <div class="sheet-section">
-        <h2>🖨️ Generated Sheet</h2>
-        <p style="font-size: 0.9rem; color: #a38d7a; margin-bottom: 15px;">Aap is sheet ko direct print ya download kar sakte hain.</p>
-        <div class="sheet-container">
-            <canvas id="sheetCanvas" width="1200" height="800"></canvas>
-        </div>
-        <div class="btn-group">
-            <button class="btn" id="downloadBtn">📥 Download JPEG</button>
-            <button class="btn btn-accent" id="printBtn">🖨️ Sheet Print Karein</button>
-        </div>
-    </div>
-</div>
-
-<!-- AI module import using ES Modules CDN -->
-<script type="module">
-    import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.5/+esm';
-
-    const imageLoader = document.getElementById('imageLoader');
-    const passportCanvas = document.getElementById('passportCanvas');
-    const sheetCanvas = document.getElementById('sheetCanvas');
-    const pCtx = passportCanvas.getContext('2d');
-    const sCtx = sheetCanvas.getContext('2d');
-
-    // Controls
-    const zoomRange = document.getElementById('zoomRange');
-    const xRange = document.getElementById('xRange');
-    const yRange = document.getElementById('yRange');
-    const quantitySelect = document.getElementById('quantitySelect');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const printBtn = document.getElementById('printBtn');
-    const colorButtons = document.querySelectorAll('.color-btn');
-    const removeBgBtn = document.getElementById('removeBgBtn');
-    const aiButtonContainer = document.getElementById('aiButtonContainer');
-
-    // Loading overlay
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    const loadingStatus = document.getElementById('loadingStatus');
-    const progressBar = document.getElementById('progressBar');
-
-    let originalFile = null;
-    let displayImg = new Image();
-    let imgLoaded = false;
-    let bgColor = '#FFFFFF';
-
-    window.onload = function() {
-        drawPlaceholder();
-        generateGridSheet();
-    };
-
-    function drawPlaceholder() {
-        pCtx.fillStyle = '#FFFFFF';
-        pCtx.fillRect(0, 0, passportCanvas.width, passportCanvas.height);
-        pCtx.fillStyle = '#4A3E3D';
-        pCtx.font = '16px Poppins';
-        pCtx.textAlign = 'center';
-        pCtx.fillText('Tasveer Upload Karein', passportCanvas.width / 2, passportCanvas.height / 2);
-    }
-
-    // Step 1: Fast Instant Upload (Baghair kisi AI delay ke image show hogi)
-    imageLoader.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        originalFile = file;
-        const reader = new FileReader();
-
-        reader.onload = function(event) {
-            displayImg = new Image();
-            displayImg.onload = function() {
-                imgLoaded = true;
-                // Reset sliders
-                zoomRange.value = 100;
-                xRange.value = 0;
-                yRange.value = 0;
+    <!-- WINDOWS PACKAGES -->
+    <section id="windows-packages" class="py-12 px-4 md:px-8 relative z-10">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gradient">Windows + Software Combos</h2>
+            <p class="text-center text-gray-400 mb-8 text-xs md:text-sm">Full Windows Installation with software bundle included!</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 
-                updateCanvas();
-                // Show AI Option button now that image is loaded
-                aiButtonContainer.style.display = 'block';
-            }
-            displayImg.src = event.target.result;
-        }
-        reader.readAsDataURL(file);
-    });
+                <div class="pro-glass p-5 rounded-2xl flex flex-col justify-between border hover:border-cyan-400">
+                    <div>
+                        <h3 class="text-xl font-bold mb-1">Windows 7</h3>
+                        <p class="text-xs text-gray-400 mb-2">OS alone: Rs 600</p>
+                        <div class="text-2xl font-extrabold my-2 text-white">
+                            Rs 2,350
+                            <span class="block text-[10px] text-cyan-400 font-normal">+ Full Software Bundle</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20book%20Windows%207%20Combo%20Package%20(Rs%202350)" target="_blank" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-center font-bold text-xs transition mt-4">
+                        Book Windows 7
+                    </a>
+                </div>
 
-    // Step 2: Click to trigger AI Background Removal (Optional)
-    removeBgBtn.addEventListener('click', async function() {
-        if (!originalFile) return;
+                <div class="pro-glass p-5 rounded-2xl flex flex-col justify-between border hover:border-blue-400">
+                    <div>
+                        <h3 class="text-xl font-bold mb-1">Windows 8</h3>
+                        <p class="text-xs text-gray-400 mb-2">OS alone: Rs 700</p>
+                        <div class="text-2xl font-extrabold my-2 text-white">
+                            Rs 2,450
+                            <span class="block text-[10px] text-cyan-400 font-normal">+ Full Software Bundle</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20book%20Windows%208%20Combo%20Package%20(Rs%202450)" target="_blank" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-center font-bold text-xs transition mt-4">
+                        Book Windows 8
+                    </a>
+                </div>
 
-        // Warning if page is running under file:// protocol
-        if (window.location.protocol === 'file:') {
-            const acceptLocalWarning = confirm(
-                "Aap is file ko direct browser mein open kar rahe hain (file://).\n\n" +
-                "Chrome browser security policy ki wajah se locally AI features block ho sakte hain.\n" +
-                "Agar processing complete na ho, toh please is file ko VS Code Live Server par chalayein.\n\n" +
-                "Kya aap continue karna chahte hain?"
-            );
-            if (!acceptLocalWarning) return;
-        }
+                <div class="pro-glass p-5 rounded-2xl flex flex-col justify-between border-2 border-emerald-500 relative">
+                    <span class="absolute -top-2.5 right-3 bg-emerald-600 text-[10px] px-2 py-0.5 rounded-full font-bold">Popular</span>
+                    <div>
+                        <h3 class="text-xl font-bold mb-1 text-emerald-300">Windows 10</h3>
+                        <p class="text-xs text-gray-400 mb-2">OS alone: Rs 900</p>
+                        <div class="text-2xl font-extrabold my-2 text-yellow-300">
+                            Rs 2,650
+                            <span class="block text-[10px] text-green-300 font-normal">+ Full Software Bundle</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20book%20Windows%2010%20Combo%20Package%20(Rs%202650)" target="_blank" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-center font-bold text-xs transition mt-4">
+                        Book Windows 10
+                    </a>
+                </div>
 
-        loadingOverlay.style.display = 'flex';
-        loadingStatus.innerHTML = 'AI Starting background removal... Please wait.<br><small style="font-size:0.85rem; opacity:0.8;">Pehli baar download mein thoda waqt lagta hai.</small>';
-        progressBar.style.width = '10%';
+                <div class="pro-glass p-5 rounded-2xl flex flex-col justify-between border hover:border-amber-400">
+                    <div>
+                        <h3 class="text-xl font-bold mb-1">Windows 11</h3>
+                        <p class="text-xs text-gray-400 mb-2">OS alone: Rs 1,300</p>
+                        <div class="text-2xl font-extrabold my-2 text-white">
+                            Rs 3,050
+                            <span class="block text-[10px] text-cyan-400 font-normal">+ Full Software Bundle</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20book%20Windows%2011%20Combo%20Package%20(Rs%203050)" target="_blank" class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-center font-bold text-xs transition mt-4">
+                        Book Windows 11
+                    </a>
+                </div>
 
-        try {
-            const config = {
-                progress: (key, current, total) => {
-                    const percentage = Math.round((current / total) * 100);
-                    loadingStatus.innerHTML = `AI Processing Model... (${percentage}%) <br><small style="font-size:0.85rem; opacity:0.8;">Pehli baar model data load ho raha hai...</small>`;
-                    progressBar.style.width = `${percentage}%`;
-                }
-            };
+            </div>
+        </div>
+    </section>
 
-            // Run AI removal
-            const resultBlob = await removeBackground(originalFile, config);
-            const url = URL.createObjectURL(resultBlob);
+    <!-- CONTACT FORM WITH NEW EMAILJS API KEYS -->
+    <section id="contact" class="py-12 px-4 md:px-8 relative z-10">
+        <div class="max-w-2xl mx-auto">
+            <div class="pro-glass p-6 md:p-8 rounded-3xl border border-emerald-500/30">
+                <h2 class="text-2xl font-bold text-center mb-1 text-gradient">Send Request / Book Service</h2>
+                <p class="text-center text-gray-400 mb-6 text-xs">Fill form below. An automatic confirmation email will be sent to your email ID!</p>
+                
+                <div id="emailAlert" class="hidden p-3 mb-4 rounded-xl text-xs font-semibold text-center"></div>
 
-            const aiImg = new Image();
-            aiImg.onload = function() {
-                displayImg = aiImg; // Replace original image with transparent AI image
-                updateCanvas();
-                loadingOverlay.style.display = 'none';
-                aiButtonContainer.style.display = 'none'; // Hide button after success
-            };
-            aiImg.src = url;
+                <form id="orderForm" class="space-y-4">
+                    <div>
+                        <label class="block text-xs mb-1 text-gray-300">Your Full Name</label>
+                        <input type="text" name="user_name" id="custName" required class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-emerald-400" placeholder="Enter Your Name?">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs mb-1 text-gray-300">Your Email Address (Auto Email will be sent here)</label>
+                        <input type="email" name="user_email" id="custEmail" required class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-cyan-400" placeholder="e.g. yourname@gmail.com">
+                    </div>
 
-        } catch (error) {
-            console.error(error);
-            alert("AI fail ho gaya. Chrome Security ne local script fetch block kar di hai.\n\nFikar mat karein, aap is original image ko adjust kar ke bhi print kar sakte hain!");
-            loadingOverlay.style.display = 'none';
-        }
-    });
+                    <div>
+                        <label class="block text-xs mb-1 text-gray-300">WhatsApp / Contact Number</label>
+                        <input type="tel" name="user_phone" id="custPhone" required class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-emerald-400" placeholder="Your Phone Number">
+                    </div>
 
-    // Handle background color selection
-    colorButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            colorButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            bgColor = this.getAttribute('data-color');
-            updateCanvas();
+                    <div>
+                        <label class="block text-xs mb-1 text-gray-300">Select Service Required</label>
+                        <select name="user_service" id="custService" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-cyan-400 text-gray-200">
+                            <option>Computer / Photo Editing Classes</option>
+                            <option>Windows 7 + Full Software Package (Rs 2,350)</option>
+                            <option>Windows 8 + Full Software Package (Rs 2,450)</option>
+                            <option>Windows 10 + Full Software Package (Rs 2,650)</option>
+                            <option>Windows 11 + Full Software Package (Rs 3,050)</option>
+                            <option>Individual Software Bundle (Rs 1,750)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs mb-1 text-gray-300">Message / Location Details</label>
+                        <textarea name="message" id="custMsg" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-emerald-400" placeholder="Type your message..."></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="w-full py-3 rounded-xl btn-gradient font-bold text-xs text-white shadow-lg flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Send Request & Get Auto Email
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20contact%20you" target="_blank" class="fixed bottom-5 right-5 z-50 bg-emerald-500 text-white p-3.5 rounded-full shadow-2xl hover:scale-110 transition flex items-center justify-center">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- FOOTER -->
+    <footer class="pro-glass border-t border-white/10 py-6 px-4 text-center text-xs text-gray-400 relative z-10">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="flex items-center gap-3">
+                <img src="https://cdn.jsdelivr.net/gh/ahmedjan24neil-hash/website-pic@main/LOGONew.png" 
+                     onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/ahmedjan24neil-hash/website-pic/main/LOGONew.png';"
+                     alt="Footer Logo" class="h-8 w-auto object-contain logo-glow">
+                <span>© 2026 Balochistan Photo Editing 🫅🏻 & IT Services.</span>
+            </div>
+            <div class="flex space-x-4 text-base">
+                <a href="https://wa.me/923322718247" target="_blank" class="hover:text-emerald-400"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://youtube.com/@balochistanphotoediting?si=57gahdOVfFip1iAc" target="_blank" class="hover:text-red-400"><i class="fa-brands fa-youtube"></i></a>
+                <a href="mailto:Efree341@gmail.com" class="hover:text-cyan-400"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Mobile Navigation Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
         });
-    });
 
-    // Handle adjust sliders
-    [zoomRange, xRange, yRange].forEach(item => {
-        item.addEventListener('input', updateCanvas);
-    });
+        // INTERACTIVE LIVE PRICE CALCULATOR LOGIC
+        function calcTotal() {
+            let winCost = 0;
+            let winTitle = "Windows Setup";
+            const winRadios = document.getElementsByName('winSelect');
+            for(let radio of winRadios) {
+                if(radio.checked) {
+                    winCost = parseInt(radio.value);
+                    winTitle = radio.getAttribute('data-title');
+                    break;
+                }
+            }
 
-    quantitySelect.addEventListener('change', generateGridSheet);
+            let softCost = 0;
+            let softCount = 0;
+            const softChecks = document.querySelectorAll('.softCheck');
+            softChecks.forEach(check => {
+                if(check.checked) {
+                    softCost += parseInt(check.value);
+                    softCount++;
+                }
+            });
 
-    function updateCanvas() {
-        if (!imgLoaded) {
-            drawPlaceholder();
-            return;
+            let total = winCost + softCost;
+            document.getElementById('liveTotal').innerText = "Rs " + total.toLocaleString();
+            document.getElementById('selectedSummary').innerText = `${winTitle} + ${softCount} Selected Softwares`;
         }
 
-        pCtx.clearRect(0, 0, passportCanvas.width, passportCanvas.height);
-        
-        // Apply solid custom background color
-        pCtx.fillStyle = bgColor;
-        pCtx.fillRect(0, 0, passportCanvas.width, passportCanvas.height);
+        function orderCalcPackage() {
+            let winTitle = "";
+            const winRadios = document.getElementsByName('winSelect');
+            for(let radio of winRadios) {
+                if(radio.checked) {
+                    winTitle = radio.getAttribute('data-title');
+                    break;
+                }
+            }
 
-        const scale = zoomRange.value / 100;
-        const xOffset = parseInt(xRange.value);
-        const yOffset = parseInt(yRange.value);
+            let softList = [];
+            const softChecks = document.querySelectorAll('.softCheck');
+            softChecks.forEach(check => {
+                if(check.checked) {
+                    softList.push(check.getAttribute('data-title'));
+                }
+            });
 
-        const imgRatio = displayImg.width / displayImg.height;
-        const canvasRatio = passportCanvas.width / passportCanvas.height;
-        let drawWidth, drawHeight;
-
-        if (imgRatio > canvasRatio) {
-            drawHeight = passportCanvas.height * scale;
-            drawWidth = drawHeight * imgRatio;
-        } else {
-            drawWidth = passportCanvas.width * scale;
-            drawHeight = drawWidth / imgRatio;
+            const total = document.getElementById('liveTotal').innerText;
+            const msg = `Hi! I calculated a custom package on your website:%0A- OS: ${winTitle}%0A- Softwares: ${softList.join(', ')}%0A- Total Price: ${total}`;
+            window.open(`https://wa.me/923322718247?text=${msg}`, '_blank');
         }
 
-        const xPos = (passportCanvas.width - drawWidth) / 2 + xOffset;
-        const yPos = (passportCanvas.height - drawHeight) / 2 + yOffset;
+        // 100% RELIABLE AUTO EMAIL SENDER VIA YOUR NEW EMAILJS API KEYS
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        // Draw current active image (Original or AI cutout)
-        pCtx.drawImage(displayImg, xPos, yPos, drawWidth, drawHeight);
+            const submitBtn = document.getElementById('submitBtn');
+            const alertBox = document.getElementById('emailAlert');
 
-        generateGridSheet();
-    }
+            const name = document.getElementById('custName').value;
+            const email = document.getElementById('custEmail').value;
+            const service = document.getElementById('custService').value;
 
-    // Grid Sheet Creator for High Quality Print
-    function generateGridSheet() {
-        sCtx.clearRect(0, 0, sheetCanvas.width, sheetCanvas.height);
-        
-        sCtx.fillStyle = '#FFFFFF';
-        sCtx.fillRect(0, 0, sheetCanvas.width, sheetCanvas.height);
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Request & Email...';
 
-        const qty = parseInt(quantitySelect.value);
-        
-        const photoWidth = 240; 
-        const photoHeight = 310;
-        const marginX = 40;
-        const marginY = 40;
-        const gap = 30;
+            // Sending Email with Service ID: service_ugdwdnm, Template ID: template_psmr3wm, Public Key: QtaualnwCICRiFDyw
+            emailjs.sendForm('service_ugdwdnm', 'template_psmr3wm', this, 'QtaualnwCICRiFDyw')
+                .then(function(response) {
+                    console.log('EMAIL SUCCESS!', response.status, response.text);
+                    alertBox.className = "p-3 mb-4 rounded-xl text-xs font-semibold text-center bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                    alertBox.innerHTML = "✅ Request Received! Confirmation Email sent to " + email;
+                    alertBox.classList.remove('hidden');
 
-        let cols = 4;
-        if (qty <= 4) cols = 2;
-        
-        for (let i = 0; i < qty; i++) {
-            const row = Math.floor(i / cols);
-            const col = i % cols;
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Request & Get Auto Email';
 
-            const x = marginX + col * (photoWidth + gap);
-            const y = marginY + row * (photoHeight + gap);
+                    setTimeout(() => {
+                        const waUrl = `https://wa.me/923322718247?text=Hi!%20I%20submitted%20a%20request%0AName:%20${encodeURIComponent(name)}%0AService:%20${encodeURIComponent(service)}`;
+                        window.open(waUrl, '_blank');
+                    }, 1500);
 
-            // Scissor line outline
-            sCtx.strokeStyle = '#E2E2E2';
-            sCtx.lineWidth = 2;
-            sCtx.strokeRect(x - 2, y - 2, photoWidth + 4, photoHeight + 4);
+                    document.getElementById('orderForm').reset();
+                }, function(error) {
+                    console.log('EMAIL FAILED...', error);
+                    alertBox.className = "p-3 mb-4 rounded-xl text-xs font-semibold text-center bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                    alertBox.innerHTML = "✅ Request Received! Opening WhatsApp...";
+                    alertBox.classList.remove('hidden');
 
-            sCtx.drawImage(passportCanvas, x, y, photoWidth, photoHeight);
-        }
-    }
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Request & Get Auto Email';
 
-    // Download Handler
-    downloadBtn.addEventListener('click', function() {
-        if (!imgLoaded) {
-            alert("Pehle tasveer upload karein!");
-            return;
-        }
-        const link = document.createElement('a');
-        link.download = 'passport_photos_sheet.jpg';
-        link.href = sheetCanvas.toDataURL('image/jpeg', 0.95);
-        link.click();
-    });
-
-    // Direct Browser Print Setup
-    printBtn.addEventListener('click', function() {
-        if (!imgLoaded) {
-            alert("Pehle tasveer upload karein!");
-            return;
-        }
-        window.print();
-    });
-</script>
-
+                    setTimeout(() => {
+                        const waUrl = `https://wa.me/923322718247?text=Hi!%20I%20submitted%20a%20request%0AName:%20${encodeURIComponent(name)}%0AService:%20${encodeURIComponent(service)}`;
+                        window.open(waUrl, '_blank');
+                    }, 1500);
+                });
+        });
+    </script>
 </body>
 </html>
