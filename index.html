@@ -1,785 +1,1056 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balochistan Photo Editing & IT Services | Official Agency</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        fireOrange: '#ff5722',
-                        waterCyan: '#00f2fe',
-                        goldenSun: '#fbbf24',
-                        emeraldGreen: '#10b981',
-                        darkNavy: '#0a0f1d',
-                        darkCard: '#111827'
-                    }
-                }
+    <title>WIFI HACKING SYSTEM - v13.5 VIP Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&family=Orbitron:wght@600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #010406;
+            --panel-bg: rgba(4, 9, 13, 0.96);
+            --panel-border: rgba(0, 255, 128, 0.25);
+            --neon-green: #00ff77;
+            --neon-cyan: #00e5ff;
+            --neon-red: #ff2a51;
+            --neon-yellow: #ffb703;
+            --neon-purple: #bc13fe;
+            --text-dim: #4d7a64;
+            --text-main: #dafbe6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--neon-green);
+            font-family: 'Share Tech Mono', monospace;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 16px 10px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #matrixCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.45) 50%);
+            background-size: 100% 3px;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1300px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Header */
+        header {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-top: 3px solid var(--neon-cyan);
+            border-radius: 8px;
+            padding: 14px 22px;
+            box-shadow: 0 0 35px rgba(0, 255, 119, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            backdrop-filter: blur(8px);
+        }
+
+        .header-profile {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .avatar-box {
+            position: relative;
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.8);
+            overflow: hidden;
+            background: #000;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-titles h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 12px var(--neon-cyan);
+        }
+
+        .header-titles span {
+            font-size: 12px;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            border: 1px solid var(--panel-border);
+            padding: 5px 12px;
+            background: rgba(0, 255, 119, 0.05);
+            border-radius: 4px;
+            font-size: 11px;
+        }
+
+        .chip b { color: var(--neon-green); }
+
+        .sound-toggle-btn {
+            background: #061511;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        /* VIP Auto Wifi Section */
+        .vip-card {
+            background: rgba(255, 183, 3, 0.05);
+            border: 1px solid var(--neon-yellow);
+            border-radius: 8px;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: 0 0 20px rgba(255, 183, 3, 0.15);
+        }
+
+        .vip-btn {
+            background: var(--neon-yellow);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: 0.2s;
+        }
+
+        .vip-btn:hover {
+            box-shadow: 0 0 20px var(--neon-yellow);
+            transform: scale(1.02);
+        }
+
+        /* Top HUD Cards */
+        .hud-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 10px;
+        }
+
+        .hud-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 6px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hud-label {
+            font-size: 11px;
+            color: var(--text-dim);
+            margin-bottom: 2px;
+        }
+
+        .hud-val {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Telemetry Grid */
+        .telemetry-grid {
+            display: grid;
+            grid-template-columns: 210px 1.4fr 1.2fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 1050px) {
+            .telemetry-grid {
+                grid-template-columns: 1fr;
             }
         }
-    </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- EmailJS Official SDK With Updated Public Key -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function() {
-            // Updated Public Key
-            emailjs.init("QtaualnwCICRiFDyw");
-        })();
-    </script>
 
-    <style>
-        * { 
-            font-family: 'Poppins', sans-serif; 
-            box-sizing: border-box;
+        .telemetry-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 6px;
+            padding: 12px;
         }
 
-        /* REAL AGENCY DARK ELEMENTAL BACKGROUND */
-        body {
-            background-color: #080c17;
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(255, 87, 34, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 85% 20%, rgba(0, 242, 254, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 50% 85%, rgba(251, 191, 36, 0.12) 0%, transparent 45%);
-            color: #f3f4f6;
-            min-height: 100vh;
+        .telemetry-header {
+            font-size: 11px;
+            color: var(--neon-cyan);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 4px;
         }
 
-        /* HIGH-END SLEEK GLASS CARDS (NO-LAG OPTIMIZED) */
-        .pro-glass {
-            background: rgba(17, 24, 39, 0.90);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            transition: border-color 0.2s ease, transform 0.2s ease;
-        }
-        .pro-glass:hover {
-            border-color: rgba(255, 87, 34, 0.5);
-            transform: translateY(-2px);
+        #radarCanvas, #spectrumCanvas {
+            width: 100%;
+            height: 105px;
+            background: #020608;
+            border: 1px solid #092016;
+            border-radius: 4px;
+            display: block;
         }
 
-        /* GRADIENT TEXT */
-        .text-gradient {
-            background: linear-gradient(135deg, #ff5722 0%, #fbbf24 35%, #10b981 70%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .hex-stream-box {
+            height: 105px;
+            overflow: hidden;
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            line-height: 1.35;
+            color: #498a6c;
+            background: #020608;
+            border: 1px solid #092016;
+            border-radius: 4px;
+            padding: 6px 8px;
+            white-space: nowrap;
         }
 
-        /* GRADIENT BUTTON */
-        .btn-gradient {
-            background: linear-gradient(90deg, #ff5722 0%, #d97706 40%, #00f2fe 100%);
+        /* Network List */
+        .content-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .search-wrap {
+            display: flex;
+            align-items: center;
+            background: #020709;
+            border: 1px solid #143527;
+            padding: 4px 10px;
+            border-radius: 4px;
+            width: 270px;
+        }
+
+        .search-wrap input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--neon-cyan);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 13px;
+            width: 100%;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #051014;
+            color: #88b39e;
+            border: 1px solid #183327;
+            padding: 4px 10px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            background: rgba(0, 229, 255, 0.08);
+        }
+
+        .target-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .wifi-row {
+            background: #020709;
+            border: 1px solid rgba(0, 255, 119, 0.12);
+            border-radius: 6px;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             transition: all 0.2s ease;
         }
-        .btn-gradient:hover {
-            opacity: 0.95;
-            box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
+
+        .wifi-row:hover {
+            border-color: var(--neon-green);
+            background: rgba(0, 255, 119, 0.04);
+            transform: translateX(3px);
         }
 
-        /* LIGHTWEIGHT & FAST LOGO GLOW */
-        .logo-glow {
-            filter: drop-shadow(0px 4px 12px rgba(255, 87, 34, 0.4));
-            transition: transform 0.3s ease;
-        }
-        .logo-glow:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0px 6px 18px rgba(0, 242, 254, 0.6));
+        .wifi-row.vip-target {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 229, 255, 0.05);
+            box-shadow: 0 0 16px rgba(0, 229, 255, 0.16);
         }
 
-        /* SMOOTH FLOATING LOGO ANIMATION */
-        .logo-float {
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 15px rgba(255, 87, 34, 0.3));
-            animation: floatSmooth 4s ease-in-out infinite;
-        }
-        @keyframes floatSmooth {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+        .target-meta-box h3 {
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #080c17; }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(#ff5722, #10b981, #00f2fe); border-radius: 4px; }
+        .tag-pill {
+            font-size: 9px;
+            background: var(--neon-cyan);
+            color: #000;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 900;
+        }
+
+        .specs-line {
+            display: flex;
+            gap: 14px;
+            font-size: 11px;
+            color: var(--text-dim);
+            flex-wrap: wrap;
+        }
+
+        .specs-line span b { color: var(--text-main); }
+
+        .crack-btn {
+            background: #021a11;
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            font-weight: bold;
+            transition: 0.2s all;
+        }
+
+        .crack-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .crack-btn svg { width: 15px; height: 15px; fill: currentColor; }
+
+        /* Terminal Modal */
+        .terminal-modal-wrap, #vipTaskModal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 12px;
+        }
+
+        .terminal-box {
+            width: 100%;
+            max-width: 880px;
+            background: #020608;
+            border: 1px solid #00ff8866;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(0, 255, 119, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .term-header {
+            background: #0a161b;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1a362a;
+        }
+
+        .term-close-btn {
+            background: var(--neon-red);
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .term-body {
+            padding: 16px 18px;
+            height: 440px;
+            overflow-y: auto;
+            color: var(--neon-green);
+            font-size: 12.5px;
+            line-height: 1.55;
+            background: #020507;
+        }
+
+        .hacker-hero-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .hacker-hero-img {
+            width: 68px;
+            height: 68px;
+            border-radius: 6px;
+            border: 2px solid var(--neon-cyan);
+            object-fit: cover;
+        }
+
+        .term-line { margin: 3px 0; }
+        .term-line.cyan { color: var(--neon-cyan); }
+        .term-line.yellow { color: var(--neon-yellow); }
+        .term-line.green { color: var(--neon-green); font-weight: bold; }
+        .term-line.bar { color: #bc13fe; font-weight: bold; }
+
+        .decrypted-card {
+            margin-top: 14px;
+            padding: 14px 18px;
+            border: 1px dashed var(--neon-green);
+            background: rgba(0, 255, 119, 0.06);
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 6px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pw-value {
+            font-size: 21px;
+            color: var(--neon-cyan);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .action-button {
+            background: var(--neon-green);
+            color: #000;
+            border: none;
+            padding: 8px 14px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 3px;
+        }
     </style>
 </head>
-<body class="min-h-screen relative overflow-x-hidden">
+<body>
 
-    <!-- NAVIGATION BAR -->
-    <nav class="fixed top-0 left-0 w-full z-50 pro-glass border-b border-white/10 px-4 md:px-8 py-2.5">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            
-            <!-- CLEAN RELIABLE PNG LOGO -->
-            <a href="#" class="text-lg md:text-2xl font-extrabold text-gradient flex items-center gap-3">
-                <img src="https://cdn.jsdelivr.net/gh/ahmedjan24neil-hash/website-pic@main/LOGONew.png" 
-                     onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/ahmedjan24neil-hash/website-pic/main/LOGONew.png';"
-                     alt="Balochistan Photo Editing Logo" 
-                     class="h-10 md:h-12 w-auto object-contain logo-glow">
-                <span class="tracking-wide">Balochistan IT & Editing</span>
-            </a>
-            
-            <!-- Desktop Nav Links -->
-            <div class="hidden lg:flex space-x-6 items-center font-medium text-xs text-gray-200">
-                <a href="#hero" class="hover:text-amber-400 transition">Home</a>
-                <a href="#calculator" class="text-orange-400 hover:text-amber-300 font-bold transition flex items-center gap-1"><i class="fa-solid fa-calculator text-xs"></i> Live Calculator</a>
-                <a href="#community" class="hover:text-emerald-400 transition">Community Links</a>
-                <a href="#about" class="hover:text-cyan-400 transition">About Academy</a>
-                <a href="#courses" class="hover:text-amber-400 transition">Courses</a>
-                <a href="#software-rates" class="hover:text-emerald-400 transition">Software Rates</a>
-                <a href="#windows-packages" class="hover:text-cyan-400 transition">Windows Combos</a>
-                <a href="#contact" class="px-5 py-2 rounded-xl btn-gradient font-bold text-white shadow-lg text-xs">Book Service</a>
-            </div>
+    <canvas id="matrixCanvas"></canvas>
+    <div class="crt-overlay"></div>
 
-            <!-- Mobile Menu Toggle -->
-            <div class="lg:hidden">
-                <button id="menuBtn" class="text-2xl text-amber-400 p-1">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobileMenu" class="hidden lg:hidden flex-col gap-3 pt-4 pb-2 border-t border-white/10 mt-3 text-sm">
-            <a href="#hero" class="hover:text-amber-400">Home</a>
-            <a href="#calculator" class="text-orange-400 font-bold">🧮 Price Calculator</a>
-            <a href="#community" class="hover:text-emerald-400">Social Links & Groups</a>
-            <a href="#about" class="hover:text-cyan-400">About Academy</a>
-            <a href="#courses" class="hover:text-amber-400">Courses</a>
-            <a href="#software-rates" class="hover:text-emerald-400">Software Rates</a>
-            <a href="#windows-packages" class="hover:text-cyan-400">Windows Combos</a>
-            <a href="#contact" class="hover:text-amber-400">Contact Form</a>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section id="hero" class="relative pt-28 pb-16 px-4 md:px-8 flex items-center justify-center min-h-[90vh] overflow-hidden">
-        
-        <!-- BACKGROUND WATERMARK LOGO -->
-        <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-15">
-            <img src="https://cdn.jsdelivr.net/gh/ahmedjan24neil-hash/website-pic@main/LOGONew.png" 
-                 onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/ahmedjan24neil-hash/website-pic/main/LOGONew.png';"
-                 alt="Background Watermark Logo" 
-                 class="w-[450px] h-[450px] md:w-[700px] md:h-[700px] object-contain">
-        </div>
-
-        <!-- HERO CONTENT CARD -->
-        <div class="max-w-5xl mx-auto text-left relative z-10 w-full">
-            <div class="pro-glass p-6 md:p-10 rounded-3xl border border-orange-500/30">
-                
-                <div class="grid lg:grid-cols-12 gap-6 items-center">
-                    
-                    <!-- Left Hero Text Content -->
-                    <div class="lg:col-span-8">
-                        <!-- LIVE AVAILABILITY BADGE -->
-                        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-                            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 border border-emerald-400/40 text-emerald-300">
-                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> 🟢 Services Available Today in Balochistan
-                            </span>
-                            <span class="text-xs font-bold text-amber-400 flex items-center gap-1">
-                                <i class="fa-solid fa-star"></i> 4.9/5 Rating (500+ Happy Clients)
-                            </span>
-                        </div>
-                        
-                        <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">
-                            Professional Photo Editing & <br class="hidden md:block"/>
-                            <span class="text-gradient">Complete Computer Software Solutions</span>
-                        </h1>
-                        
-                        <p class="text-gray-300 max-w-2xl text-sm md:text-base leading-relaxed mb-8">
-                            Become a skilled Photo Editor & Computer Expert. Get original Windows 7, 8, 10, 11 setup & essential software packages installed directly at your home or office!
-                        </p>
-                        
-                        <!-- ACTION BUTTONS -->
-                        <div class="flex flex-wrap items-center gap-4 mb-4">
-                            <a href="#calculator" class="px-7 py-3.5 rounded-xl btn-gradient font-bold text-white text-sm shadow-xl flex items-center gap-2">
-                                <i class="fa-solid fa-calculator"></i> Build Package & Calculate Price
-                            </a>
-                            <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20information%20about%20Windows%20Setup%20and%20Editing" target="_blank" class="px-7 py-3.5 rounded-xl border border-white/20 hover:border-emerald-400 bg-white/5 font-bold text-sm text-white flex items-center gap-2 transition">
-                                <i class="fa-brands fa-whatsapp text-xl text-emerald-400"></i> Direct WhatsApp Chat
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Right Side Official Logo Showcase -->
-                    <div class="lg:col-span-4 flex justify-center items-center py-4">
-                        <div class="p-4 rounded-2xl bg-slate-900/60 border border-orange-500/20 flex flex-col items-center">
-                            <img src="https://cdn.jsdelivr.net/gh/ahmedjan24neil-hash/website-pic@main/LOGONew.png" 
-                                 onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/ahmedjan24neil-hash/website-pic/main/LOGONew.png';"
-                                 alt="Balochistan Official Logo Showcase" 
-                                 class="w-44 md:w-56 h-auto object-contain logo-float">
-                        </div>
-                    </div>
-
+    <div class="main-container">
+        <!-- Header -->
+        <header>
+            <div class="header-profile">
+                <div class="avatar-box">
+                    <img src="https://raw.githubusercontent.com/ahmedjan24neil-hash/AhmedJanking/main/unnamed.webp" alt="Master Hacker" class="avatar-img" onerror="this.src='https://github.com/ahmedjan24neil-hash/AhmedJanking/raw/main/unnamed.webp'">
                 </div>
-
-                <!-- REAL AGENCY TRUST GUARANTEES -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 mt-4 border-t border-white/10 text-xs font-semibold text-gray-200">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <span>100% Virus-Free & Genuine Setup</span>
-                    </div>
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 shrink-0">
-                            <i class="fa-solid fa-chalkboard-user"></i>
-                        </div>
-                        <span>1-on-1 Practical Training</span>
-                    </div>
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
-                            <i class="fa-solid fa-truck-fast"></i>
-                        </div>
-                        <span>Fast Doorstep Service</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- INTERACTIVE LIVE PRICE CALCULATOR -->
-    <section id="calculator" class="py-12 px-4 md:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <div class="pro-glass p-6 md:p-10 rounded-3xl border border-orange-500/30">
-                
-                <div class="text-center mb-8">
-                    <span class="text-xs font-bold text-orange-400 uppercase tracking-widest bg-orange-500/10 px-3 py-1 rounded-full border border-orange-400/30">Custom Package Builder</span>
-                    <h2 class="text-2xl md:text-4xl font-bold mt-2 text-gradient">Interactive Price Calculator</h2>
-                    <p class="text-gray-400 text-xs md:text-sm mt-1">Select your desired Windows and softwares to see live total price!</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8">
-                    
-                    <!-- Windows OS Selection -->
-                    <div>
-                        <h4 class="font-bold text-sm text-cyan-300 mb-3 flex items-center gap-2">
-                            <i class="fa-brands fa-windows text-base"></i> Select Windows OS:
-                        </h4>
-                        <div class="space-y-2 text-xs">
-                            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-cyan-400">
-                                <span class="flex items-center gap-2"><input type="radio" name="winSelect" value="600" data-title="Windows 7" class="accent-cyan-400" onchange="calcTotal()"> Windows 7 OS</span>
-                                <span class="font-bold text-cyan-400">Rs 600</span>
-                            </label>
-                            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-cyan-400">
-                                <span class="flex items-center gap-2"><input type="radio" name="winSelect" value="700" data-title="Windows 8" class="accent-cyan-400" onchange="calcTotal()"> Windows 8 OS</span>
-                                <span class="font-bold text-cyan-400">Rs 700</span>
-                            </label>
-                            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-cyan-400">
-                                <span class="flex items-center gap-2"><input type="radio" name="winSelect" value="900" data-title="Windows 10" class="accent-cyan-400" checked onchange="calcTotal()"> Windows 10 OS (Recommended)</span>
-                                <span class="font-bold text-cyan-400">Rs 900</span>
-                            </label>
-                            <label class="flex items-center justify-between p-3 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-cyan-400">
-                                <span class="flex items-center gap-2"><input type="radio" name="winSelect" value="1300" data-title="Windows 11" class="accent-cyan-400" onchange="calcTotal()"> Windows 11 OS</span>
-                                <span class="font-bold text-cyan-400">Rs 1,300</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Software Selection -->
-                    <div>
-                        <h4 class="font-bold text-sm text-amber-300 mb-3 flex items-center gap-2">
-                            <i class="fa-solid fa-boxes-packing text-base"></i> Select Softwares:
-                        </h4>
-                        <div class="space-y-2 text-xs">
-                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
-                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="400" data-title="MS Office 2013" checked onchange="calcTotal()"> MS Office 2013</span>
-                                <span class="font-bold text-amber-400">Rs 400</span>
-                            </label>
-                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
-                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="200" data-title="Typing Master Pro" checked onchange="calcTotal()"> Typing Master Pro</span>
-                                <span class="font-bold text-amber-400">Rs 200</span>
-                            </label>
-                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
-                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="400" data-title="CorelDraw X5" checked onchange="calcTotal()"> CorelDraw Graphics X5</span>
-                                <span class="font-bold text-amber-400">Rs 400</span>
-                            </label>
-                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
-                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="400" data-title="Adobe Photoshop" checked onchange="calcTotal()"> Adobe Photoshop</span>
-                                <span class="font-bold text-amber-400">Rs 400</span>
-                            </label>
-                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
-                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="200" data-title="InPage Urdu" checked onchange="calcTotal()"> InPage Urdu Composing</span>
-                                <span class="font-bold text-amber-400">Rs 200</span>
-                            </label>
-                            <label class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/80 border border-white/10 cursor-pointer hover:border-amber-400">
-                                <span class="flex items-center gap-2"><input type="checkbox" class="softCheck accent-amber-400" value="150" data-title="Google Chrome" checked onchange="calcTotal()"> Google Chrome Browser</span>
-                                <span class="font-bold text-amber-400">Rs 150</span>
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- LIVE TOTAL PRICE & DIRECT ORDER -->
-                <div class="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left bg-black/40 p-5 rounded-2xl border border-orange-500/30">
-                    <div>
-                        <span class="text-xs text-gray-400">Estimated Total Cost:</span>
-                        <div id="liveTotal" class="text-3xl font-extrabold text-yellow-400">Rs 2,650</div>
-                        <p id="selectedSummary" class="text-[11px] text-emerald-400 mt-1">Windows 10 + 6 Softwares Package</p>
-                    </div>
-                    <button onclick="orderCalcPackage()" class="px-7 py-3.5 rounded-xl btn-gradient font-bold text-white text-xs shadow-lg flex items-center gap-2">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> Order This Package on WhatsApp
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- OFFICIAL COMMUNITY & SOCIAL LINKS -->
-    <section id="community" class="py-12 px-4 md:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gradient">Official Community Links</h2>
-            <p class="text-center text-gray-400 mb-8 text-xs md:text-sm">Join our official WhatsApp channel, group & YouTube channel for daily updates!</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                
-                <!-- 1. Direct WhatsApp -->
-                <a href="https://wa.me/923322718247" target="_blank" class="pro-glass p-5 rounded-2xl flex items-center gap-4 hover:border-emerald-400">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl shrink-0">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm">Direct WhatsApp</h4>
-                        <p class="text-xs text-gray-400">Click to Chat</p>
-                    </div>
-                </a>
-
-                <!-- 2. WhatsApp Group -->
-                <a href="https://chat.whatsapp.com/Lqmf9klqyiJ3kLFU87FYpW?s=sh&p=a&ilr=4" target="_blank" class="pro-glass p-5 rounded-2xl flex items-center gap-4 hover:border-cyan-400">
-                    <div class="w-12 h-12 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl shrink-0">
-                        <i class="fa-solid fa-user-group"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm">WhatsApp Group</h4>
-                        <p class="text-xs text-gray-400">Join Community</p>
-                    </div>
-                </a>
-
-                <!-- 3. WhatsApp Channel -->
-                <a href="https://whatsapp.com/channel/0029Vb8WlpbHwXbCt86GaR0M" target="_blank" class="pro-glass p-5 rounded-2xl flex items-center gap-4 hover:border-amber-400">
-                    <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl shrink-0">
-                        <i class="fa-solid fa-bullhorn"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm">WhatsApp Channel</h4>
-                        <p class="text-xs text-gray-400">Balochistan Photo Editing 🫅🏻</p>
-                    </div>
-                </a>
-
-                <!-- 4. YouTube Channel -->
-                <a href="https://youtube.com/@balochistanphotoediting?si=57gahdOVfFip1iAc" target="_blank" class="pro-glass p-5 rounded-2xl flex items-center gap-4 hover:border-red-500">
-                    <div class="w-12 h-12 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400 text-2xl shrink-0">
-                        <i class="fa-brands fa-youtube"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm">YouTube Channel</h4>
-                        <p class="text-xs text-gray-400">Subscribe Channel</p>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ABOUT WORKSTATION SECTION -->
-    <section id="about" class="py-12 px-4 md:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-6 items-center">
-                <div class="pro-glass p-3 rounded-3xl border border-emerald-500/30 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=700&auto=format&fit=crop&q=80" alt="Editing PC Workstation" class="rounded-2xl w-full h-80 object-cover">
-                </div>
-                
-                <div class="pro-glass p-6 md:p-8 rounded-3xl space-y-4">
-                    <span class="text-xs font-bold text-emerald-400 uppercase bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-400/30">IT Workstation & Academy</span>
-                    <h3 class="text-2xl font-bold">Expert Photo Editing & Computer Teacher</h3>
-                    <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
-                        Welcome to <strong>Balochistan Photo Editing 🫅🏻</strong>. We provide high-end photo editing setup, PC maintenance, MS Office practical classes, and complete genuine Windows installations.
-                    </p>
-                    <div class="p-3 bg-white/5 rounded-xl border border-white/10 text-xs text-gray-300 space-y-1">
-                        <div><i class="fa-solid fa-envelope text-cyan-400 mr-2"></i> <strong>Email:</strong> Efree341@gmail.com</div>
-                        <div><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> <strong>Contact:</strong> WhatsApp Direct</div>
-                    </div>
-                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20learn%20computer%20and%20editing" target="_blank" class="inline-block px-5 py-2.5 rounded-xl btn-gradient font-bold text-xs text-white">
-                        Enroll in Classes
-                    </a>
+                <div class="header-titles">
+                    <h1>⚡ WIFI HACKING SYSTEM</h1>
+                    <span>BLACK HAT AIRCRACK KERNEL // VIP EDITION</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- COURSES TAUGHT -->
-    <section id="courses" class="py-12 px-4 md:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gradient">Courses & Training</h2>
-            <p class="text-center text-gray-400 mb-8 text-xs md:text-sm">Practical training for students and job seekers</p>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="pro-glass p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <i class="fa-solid fa-file-word text-4xl text-cyan-400 mb-3"></i>
-                        <h3 class="text-lg font-bold mb-2">MS Office Masterclass</h3>
-                        <p class="text-gray-300 text-xs leading-relaxed mb-4">Word, Excel, PowerPoint, Access & Publisher with practical office work.</p>
-                    </div>
-                    <a href="https://wa.me/923322718247?text=I%20want%20details%20for%20MS%20Office%20Course" target="_blank" class="text-xs font-bold text-amber-400 flex items-center gap-1 hover:underline">
-                        Get Details <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="pro-glass p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <i class="fa-solid fa-wand-magic-sparkles text-4xl text-amber-400 mb-3"></i>
-                        <h3 class="text-lg font-bold mb-2">Photo & Graphic Editing</h3>
-                        <p class="text-gray-300 text-xs leading-relaxed mb-4">Adobe Photoshop editing, photo retouching, CorelDraw logo & flyer design.</p>
-                    </div>
-                    <a href="https://wa.me/923322718247?text=I%20want%20details%20for%20Photo%20Editing%20Course" target="_blank" class="text-xs font-bold text-amber-400 flex items-center gap-1 hover:underline">
-                        Get Details <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-
-                <div class="pro-glass p-6 rounded-2xl flex flex-col justify-between">
-                    <div>
-                        <i class="fa-solid fa-keyboard text-4xl text-emerald-400 mb-3"></i>
-                        <h3 class="text-lg font-bold mb-2">Typing & InPage Urdu</h3>
-                        <p class="text-gray-300 text-xs leading-relaxed mb-4">English typing speed building + InPage Urdu Composing for official jobs.</p>
-                    </div>
-                    <a href="https://wa.me/923322718247?text=I%20want%20details%20for%20Typing%20Course" target="_blank" class="text-xs font-bold text-amber-400 flex items-center gap-1 hover:underline">
-                        Get Details <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
+            <div class="header-controls">
+                <div class="chip">INTERFACE: <b>wlan0mon</b></div>
+                <div class="chip">STATUS: <b>ROOT LEVEL</b></div>
+                <button class="sound-toggle-btn" id="soundToggleBtn" onclick="toggleAudio()">🔊 AUDIO: ON</button>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- SOFTWARE RATES -->
-    <section id="software-rates" class="py-12 px-4 md:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gradient">Software Installation Rates</h2>
-            <p class="text-center text-gray-400 mb-8 text-xs md:text-sm">Individual software setups for PC & Laptop</p>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-cyan-400">
-                    <div>
-                        <h4 class="font-bold text-sm">1. MS Office 2013</h4>
-                        <p class="text-[11px] text-gray-400">Word, Excel, PowerPoint</p>
-                    </div>
-                    <span class="text-lg font-bold text-cyan-400">Rs 400</span>
+        <!-- VIP Auto Wifi Connection Box -->
+        <div class="vip-card">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 48px; height: 48px; background: rgba(255, 183, 3, 0.1); border: 1px solid var(--neon-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px;">
+                    📱
                 </div>
-
-                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-amber-400">
-                    <div>
-                        <h4 class="font-bold text-sm">2. Typing Master Pro</h4>
-                        <p class="text-[11px] text-gray-400">Speed Tool</p>
-                    </div>
-                    <span class="text-lg font-bold text-amber-400">Rs 200</span>
-                </div>
-
-                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-emerald-500">
-                    <div>
-                        <h4 class="font-bold text-sm">3. CorelDraw Graphics X5</h4>
-                        <p class="text-[11px] text-gray-400">Vector Graphic Tool</p>
-                    </div>
-                    <span class="text-lg font-bold text-emerald-400">Rs 400</span>
-                </div>
-
-                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-blue-400">
-                    <div>
-                        <h4 class="font-bold text-sm">4. Adobe Photoshop</h4>
-                        <p class="text-[11px] text-gray-400">Photo Editing</p>
-                    </div>
-                    <span class="text-lg font-bold text-cyan-400">Rs 400</span>
-                </div>
-
-                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-yellow-400">
-                    <div>
-                        <h4 class="font-bold text-sm">5. InPage Urdu</h4>
-                        <p class="text-[11px] text-gray-400">Urdu Composing</p>
-                    </div>
-                    <span class="text-lg font-bold text-yellow-400">Rs 200</span>
-                </div>
-
-                <div class="pro-glass p-5 rounded-2xl flex justify-between items-center border-l-4 border-orange-500">
-                    <div>
-                        <h4 class="font-bold text-sm">6. Google Chrome</h4>
-                        <p class="text-[11px] text-gray-400">Internet Browser</p>
-                    </div>
-                    <span class="text-lg font-bold text-amber-400">Rs 150</span>
-                </div>
-            </div>
-
-            <!-- BUNDLE BOX -->
-            <div class="mt-8 pro-glass p-6 rounded-3xl bg-gradient-to-r from-orange-950/40 via-emerald-950/40 to-cyan-950/40 border border-orange-400/40 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
                 <div>
-                    <h3 class="text-xl font-bold text-amber-300">Complete Software Bundle</h3>
-                    <p class="text-xs text-gray-300">All 6 essential softwares installed together!</p>
+                    <h3 style="color: #fff; font-size: 16px; margin-bottom: 2px; display: flex; align-items: center; gap: 8px;">
+                        AUTO WIFI CONNECTION
+                        <span style="background: var(--neon-yellow); color: #000; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 3px;">VIP PROTOCOL</span>
+                    </h3>
+                    <div style="font-size: 12px; color: #a0c4b2;">
+                        1-CLICK AUTO BYPASS & PASSWORD EXTRACTOR | <b style="color: var(--neon-yellow);">VALUE: RS 1000</b>
+                    </div>
                 </div>
-                <div class="flex items-center gap-3">
-                    <span class="text-2xl font-bold text-yellow-300 bg-black/50 px-5 py-2 rounded-xl border border-yellow-500/30">Rs 1,750</span>
-                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20order%20Complete%20Software%20Bundle%20(Rs%201750)" target="_blank" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 rounded-xl font-bold text-xs text-white shadow-lg">
-                        Order Bundle
-                    </a>
+            </div>
+            <button class="vip-btn" onclick="startAutoWifiProcess()">
+                ⚡ ACTIVATE VIP (RS 1000)
+            </button>
+        </div>
+
+        <!-- Live Telemetry HUD -->
+        <div class="hud-grid">
+            <div class="hud-card">
+                <div>
+                    <div class="hud-label">AIR PACKETS CAPTURED</div>
+                    <div class="hud-val" id="hudPackets">892,410</div>
+                </div>
+                <span style="font-size:22px">📡</span>
+            </div>
+            <div class="hud-card">
+                <div>
+                    <div class="hud-label">EAPOL HANDSHAKES</div>
+                    <div class="hud-val" style="color:var(--neon-green)">26 CAPTURED</div>
+                </div>
+                <span style="font-size:22px">🔑</span>
+            </div>
+            <div class="hud-card">
+                <div>
+                    <div class="hud-label">GPU HASHRATE</div>
+                    <div class="hud-val">580,000 kH/s</div>
+                </div>
+                <span style="font-size:22px">⚡</span>
+            </div>
+            <div class="hud-card">
+                <div>
+                    <div class="hud-label">SECURITY PROTOCOLS</div>
+                    <div class="hud-val" style="color:var(--neon-yellow)">WPA2 / WPA3-SAE</div>
+                </div>
+                <span style="font-size:22px">🛡️</span>
+            </div>
+        </div>
+
+        <!-- Radar + Spectrum + Hex Stream -->
+        <div class="telemetry-grid">
+            <div class="telemetry-card">
+                <div class="telemetry-header">
+                    <span>360° RF RADAR</span>
+                    <span style="color:var(--neon-green)">SCANNING</span>
+                </div>
+                <canvas id="radarCanvas"></canvas>
+            </div>
+            <div class="telemetry-card">
+                <div class="telemetry-header">
+                    <span>SPECTRUM ANALYZER</span>
+                    <span style="color:var(--neon-cyan)">SWEEP: 80MHz</span>
+                </div>
+                <canvas id="spectrumCanvas"></canvas>
+            </div>
+            <div class="telemetry-card">
+                <div class="telemetry-header">
+                    <span>RAW INJECTION PACKETS</span>
+                    <span style="color:var(--neon-yellow)">EAPOL: CAP</span>
+                </div>
+                <div class="hex-stream-box" id="hexStream"></div>
+            </div>
+        </div>
+
+        <!-- Detected Networks -->
+        <div class="content-card">
+            <div class="toolbar">
+                <div class="search-wrap">
+                    <span style="margin-right:8px; color:var(--text-dim)">🔍</span>
+                    <input type="text" id="targetSearchInput" placeholder="SEARCH SSID / BSSID..." oninput="handleSearch(this.value)">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterBand('ALL', this)">ALL NETWORKS</button>
+                    <button class="filter-btn" onclick="filterBand('2.4', this)">2.4 GHz</button>
+                    <button class="filter-btn" onclick="filterBand('5.0', this)">5.0 GHz</button>
+                    <button class="filter-btn" onclick="filterBand('6.0', this)">6.0 GHz (WIFI 6E)</button>
+                </div>
+            </div>
+
+            <div class="target-list" id="wifiContainer"></div>
+        </div>
+    </div>
+
+    <!-- TERMINAL POPUP MODAL -->
+    <div class="terminal-modal-wrap" id="termModal">
+        <div class="terminal-box">
+            <div class="term-header">
+                <div style="font-size: 12px; color: #a0ceb8;">⚡ root@kali-exploit: ~/# attrib +wifi --crack-engine</div>
+                <button class="term-close-btn" onclick="closeTerminalModal()">✕ CLOSE</button>
+            </div>
+            <div class="term-body" id="terminalScreen">
+                <div class="hacker-hero-card">
+                    <img src="https://raw.githubusercontent.com/ahmedjan24neil-hash/AhmedJanking/main/unnamed.webp" alt="Hacker" class="hacker-hero-img" onerror="this.src='https://github.com/ahmedjan24neil-hash/AhmedJanking/raw/main/unnamed.webp'">
+                    <div>
+                        <b style="color: var(--neon-cyan); font-size: 14px;">ANONYMOUS 802.11 REVERSE CIPHER</b>
+                        <div style="font-size: 11px; color: #8bb5a1;">[ATTRIB +WIFI ENGINE ACTIVE]</div>
+                    </div>
+                </div>
+                <div id="termLogContainer"></div>
+                <div class="decrypted-card" id="decryptedKeyCard">
+                    <div>
+                        <div style="font-size: 11px; color: #8bb5a1;">DECRYPTED PASSWORD:</div>
+                        <div class="pw-value" id="recoveredPasswordDisplay">********</div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="action-button" onclick="copyDecryptedPassword(this)">COPY KEY</button>
+                        <button class="action-button" style="background:#192620; color:#fff;" onclick="closeTerminalModal()">✕ CLOSE</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- WINDOWS PACKAGES -->
-    <section id="windows-packages" class="py-12 px-4 md:px-8 relative z-10">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gradient">Windows + Software Combos</h2>
-            <p class="text-center text-gray-400 mb-8 text-xs md:text-sm">Full Windows Installation with software bundle included!</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                
-                <div class="pro-glass p-5 rounded-2xl flex flex-col justify-between border hover:border-cyan-400">
-                    <div>
-                        <h3 class="text-xl font-bold mb-1">Windows 7</h3>
-                        <p class="text-xs text-gray-400 mb-2">OS alone: Rs 600</p>
-                        <div class="text-2xl font-extrabold my-2 text-white">
-                            Rs 2,350
-                            <span class="block text-[10px] text-cyan-400 font-normal">+ Full Software Bundle</span>
-                        </div>
-                    </div>
-                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20book%20Windows%207%20Combo%20Package%20(Rs%202350)" target="_blank" class="w-full py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-center font-bold text-xs transition mt-4">
-                        Book Windows 7
-                    </a>
-                </div>
-
-                <div class="pro-glass p-5 rounded-2xl flex flex-col justify-between border hover:border-blue-400">
-                    <div>
-                        <h3 class="text-xl font-bold mb-1">Windows 8</h3>
-                        <p class="text-xs text-gray-400 mb-2">OS alone: Rs 700</p>
-                        <div class="text-2xl font-extrabold my-2 text-white">
-                            Rs 2,450
-                            <span class="block text-[10px] text-cyan-400 font-normal">+ Full Software Bundle</span>
-                        </div>
-                    </div>
-                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20book%20Windows%208%20Combo%20Package%20(Rs%202450)" target="_blank" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-center font-bold text-xs transition mt-4">
-                        Book Windows 8
-                    </a>
-                </div>
-
-                <div class="pro-glass p-5 rounded-2xl flex flex-col justify-between border-2 border-emerald-500 relative">
-                    <span class="absolute -top-2.5 right-3 bg-emerald-600 text-[10px] px-2 py-0.5 rounded-full font-bold">Popular</span>
-                    <div>
-                        <h3 class="text-xl font-bold mb-1 text-emerald-300">Windows 10</h3>
-                        <p class="text-xs text-gray-400 mb-2">OS alone: Rs 900</p>
-                        <div class="text-2xl font-extrabold my-2 text-yellow-300">
-                            Rs 2,650
-                            <span class="block text-[10px] text-green-300 font-normal">+ Full Software Bundle</span>
-                        </div>
-                    </div>
-                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20book%20Windows%2010%20Combo%20Package%20(Rs%202650)" target="_blank" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-center font-bold text-xs transition mt-4">
-                        Book Windows 10
-                    </a>
-                </div>
-
-                <div class="pro-glass p-5 rounded-2xl flex flex-col justify-between border hover:border-amber-400">
-                    <div>
-                        <h3 class="text-xl font-bold mb-1">Windows 11</h3>
-                        <p class="text-xs text-gray-400 mb-2">OS alone: Rs 1,300</p>
-                        <div class="text-2xl font-extrabold my-2 text-white">
-                            Rs 3,050
-                            <span class="block text-[10px] text-cyan-400 font-normal">+ Full Software Bundle</span>
-                        </div>
-                    </div>
-                    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20book%20Windows%2011%20Combo%20Package%20(Rs%203050)" target="_blank" class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-center font-bold text-xs transition mt-4">
-                        Book Windows 11
-                    </a>
-                </div>
-
+    <!-- VIP ACTIVATION MODAL -->
+    <div id="vipTaskModal">
+        <div style="background: #04090c; border: 1px solid var(--neon-cyan); width: 100%; max-width: 520px; border-radius: 8px; padding: 20px; font-family: monospace; box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #143527; padding-bottom: 10px; margin-bottom: 15px;">
+                <span style="color: var(--neon-cyan); font-weight: bold;">⚡ VIP ACTIVATION GATEWAY</span>
+                <button onclick="closeVipModal()" style="background: var(--neon-red); color: #fff; border: none; padding: 2px 8px; border-radius: 3px; cursor: pointer;">✕</button>
             </div>
+            <div id="vipModalContent"></div>
         </div>
-    </section>
+    </div>
 
-    <!-- CONTACT FORM WITH NEW EMAILJS API KEYS -->
-    <section id="contact" class="py-12 px-4 md:px-8 relative z-10">
-        <div class="max-w-2xl mx-auto">
-            <div class="pro-glass p-6 md:p-8 rounded-3xl border border-emerald-500/30">
-                <h2 class="text-2xl font-bold text-center mb-1 text-gradient">Send Request / Book Service</h2>
-                <p class="text-center text-gray-400 mb-6 text-xs">Fill form below. An automatic confirmation email will be sent to your email ID!</p>
-                
-                <div id="emailAlert" class="hidden p-3 mb-4 rounded-xl text-xs font-semibold text-center"></div>
-
-                <form id="orderForm" class="space-y-4">
-                    <div>
-                        <label class="block text-xs mb-1 text-gray-300">Your Full Name</label>
-                        <input type="text" name="user_name" id="custName" required class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-emerald-400" placeholder="Enter Your Name?">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-xs mb-1 text-gray-300">Your Email Address (Auto Email will be sent here)</label>
-                        <input type="email" name="user_email" id="custEmail" required class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-cyan-400" placeholder="e.g. yourname@gmail.com">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs mb-1 text-gray-300">WhatsApp / Contact Number</label>
-                        <input type="tel" name="user_phone" id="custPhone" required class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-emerald-400" placeholder="Your Phone Number">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs mb-1 text-gray-300">Select Service Required</label>
-                        <select name="user_service" id="custService" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-cyan-400 text-gray-200">
-                            <option>Computer / Photo Editing Classes</option>
-                            <option>Windows 7 + Full Software Package (Rs 2,350)</option>
-                            <option>Windows 8 + Full Software Package (Rs 2,450)</option>
-                            <option>Windows 10 + Full Software Package (Rs 2,650)</option>
-                            <option>Windows 11 + Full Software Package (Rs 3,050)</option>
-                            <option>Individual Software Bundle (Rs 1,750)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs mb-1 text-gray-300">Message / Location Details</label>
-                        <textarea name="message" id="custMsg" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/20 text-xs focus:outline-none focus:border-emerald-400" placeholder="Type your message..."></textarea>
-                    </div>
-
-                    <button type="submit" id="submitBtn" class="w-full py-3 rounded-xl btn-gradient font-bold text-xs text-white shadow-lg flex justify-center items-center gap-2">
-                        <i class="fa-solid fa-paper-plane"></i> Send Request & Get Auto Email
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="https://wa.me/923322718247?text=Hi!%20I%20want%20to%20contact%20you" target="_blank" class="fixed bottom-5 right-5 z-50 bg-emerald-500 text-white p-3.5 rounded-full shadow-2xl hover:scale-110 transition flex items-center justify-center">
-        <i class="fa-brands fa-whatsapp text-2xl"></i>
-    </a>
-
-    <!-- FOOTER -->
-    <footer class="pro-glass border-t border-white/10 py-6 px-4 text-center text-xs text-gray-400 relative z-10">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
-            <div class="flex items-center gap-3">
-                <img src="https://cdn.jsdelivr.net/gh/ahmedjan24neil-hash/website-pic@main/LOGONew.png" 
-                     onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/ahmedjan24neil-hash/website-pic/main/LOGONew.png';"
-                     alt="Footer Logo" class="h-8 w-auto object-contain logo-glow">
-                <span>© 2026 Balochistan Photo Editing 🫅🏻 & IT Services.</span>
-            </div>
-            <div class="flex space-x-4 text-base">
-                <a href="https://wa.me/923322718247" target="_blank" class="hover:text-emerald-400"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="https://youtube.com/@balochistanphotoediting?si=57gahdOVfFip1iAc" target="_blank" class="hover:text-red-400"><i class="fa-brands fa-youtube"></i></a>
-                <a href="mailto:Efree341@gmail.com" class="hover:text-cyan-400"><i class="fa-solid fa-envelope"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Mobile Navigation Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
-        });
+        // Exact YouTube Channel Link
+        const YOUTUBE_CHANNEL_URL = "https://youtube.com/@ahmedjanff?si=-XgKQirwCHGuiuUf";
 
-        // INTERACTIVE LIVE PRICE CALCULATOR LOGIC
-        function calcTotal() {
-            let winCost = 0;
-            let winTitle = "Windows Setup";
-            const winRadios = document.getElementsByName('winSelect');
-            for(let radio of winRadios) {
-                if(radio.checked) {
-                    winCost = parseInt(radio.value);
-                    winTitle = radio.getAttribute('data-title');
-                    break;
-                }
-            }
+        let audioEnabled = true;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-            let softCost = 0;
-            let softCount = 0;
-            const softChecks = document.querySelectorAll('.softCheck');
-            softChecks.forEach(check => {
-                if(check.checked) {
-                    softCost += parseInt(check.value);
-                    softCount++;
-                }
-            });
-
-            let total = winCost + softCost;
-            document.getElementById('liveTotal').innerText = "Rs " + total.toLocaleString();
-            document.getElementById('selectedSummary').innerText = `${winTitle} + ${softCount} Selected Softwares`;
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            document.getElementById('soundToggleBtn').textContent = audioEnabled ? "🔊 AUDIO: ON" : "🔇 AUDIO: MUTED";
         }
 
-        function orderCalcPackage() {
-            let winTitle = "";
-            const winRadios = document.getElementsByName('winSelect');
-            for(let radio of winRadios) {
-                if(radio.checked) {
-                    winTitle = radio.getAttribute('data-title');
-                    break;
-                }
-            }
-
-            let softList = [];
-            const softChecks = document.querySelectorAll('.softCheck');
-            softChecks.forEach(check => {
-                if(check.checked) {
-                    softList.push(check.getAttribute('data-title'));
-                }
-            });
-
-            const total = document.getElementById('liveTotal').innerText;
-            const msg = `Hi! I calculated a custom package on your website:%0A- OS: ${winTitle}%0A- Softwares: ${softList.join(', ')}%0A- Total Price: ${total}`;
-            window.open(`https://wa.me/923322718247?text=${msg}`, '_blank');
+        function playBeep(freq = 800, duration = 0.05, type = 'sine') {
+            if (!audioEnabled) return;
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
         }
 
-        // 100% RELIABLE AUTO EMAIL SENDER VIA YOUR NEW EMAILJS API KEYS
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Matrix Animation
+        const matrixCanvas = document.getElementById('matrixCanvas');
+        const mCtx = matrixCanvas.getContext('2d');
+        function resizeMatrix() { matrixCanvas.width = window.innerWidth; matrixCanvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeMatrix);
+        resizeMatrix();
 
-            const submitBtn = document.getElementById('submitBtn');
-            const alertBox = document.getElementById('emailAlert');
+        const mChars = "01010101ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789WIFIHACK";
+        let mCols = Math.floor(matrixCanvas.width / 14);
+        let mDrops = Array(mCols).fill(1);
 
-            const name = document.getElementById('custName').value;
-            const email = document.getElementById('custEmail').value;
-            const service = document.getElementById('custService').value;
+        function drawMatrix() {
+            mCtx.fillStyle = "rgba(1, 4, 6, 0.08)";
+            mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            mCtx.fillStyle = "#00ff77";
+            mCtx.font = "14px monospace";
+            for (let i = 0; i < mDrops.length; i++) {
+                const txt = mChars.charAt(Math.floor(Math.random() * mChars.length));
+                mCtx.fillText(txt, i * 14, mDrops[i] * 14);
+                if (mDrops[i] * 14 > matrixCanvas.height && Math.random() > 0.975) mDrops[i] = 0;
+                mDrops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 40);
 
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Request & Email...';
+        // Radar Animation
+        const radarCanvas = document.getElementById('radarCanvas');
+        const rCtx = radarCanvas.getContext('2d');
+        let radarAngle = 0;
+        function drawRadar() {
+            radarCanvas.width = radarCanvas.offsetWidth;
+            radarCanvas.height = radarCanvas.offsetHeight;
+            const cx = radarCanvas.width / 2, cy = radarCanvas.height / 2, radius = Math.min(cx, cy) - 6;
+            rCtx.clearRect(0, 0, radarCanvas.width, radarCanvas.height);
+            rCtx.strokeStyle = "rgba(0, 255, 119, 0.2)";
+            rCtx.beginPath(); rCtx.arc(cx, cy, radius, 0, Math.PI * 2); rCtx.stroke();
+            rCtx.beginPath(); rCtx.moveTo(cx, cy); rCtx.arc(cx, cy, radius, radarAngle, radarAngle + 0.35);
+            rCtx.fillStyle = "rgba(0, 229, 255, 0.25)"; rCtx.fill();
+            radarAngle += 0.05;
+            requestAnimationFrame(drawRadar);
+        }
+        drawRadar();
 
-            // Sending Email with Service ID: service_ugdwdnm, Template ID: template_psmr3wm, Public Key: QtaualnwCICRiFDyw
-            emailjs.sendForm('service_ugdwdnm', 'template_psmr3wm', this, 'QtaualnwCICRiFDyw')
-                .then(function(response) {
-                    console.log('EMAIL SUCCESS!', response.status, response.text);
-                    alertBox.className = "p-3 mb-4 rounded-xl text-xs font-semibold text-center bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-                    alertBox.innerHTML = "✅ Request Received! Confirmation Email sent to " + email;
-                    alertBox.classList.remove('hidden');
+        // Spectrum Wave
+        const specCanvas = document.getElementById('spectrumCanvas');
+        const sCtx = specCanvas.getContext('2d');
+        let waveOffset = 0;
+        function drawSpectrum() {
+            specCanvas.width = specCanvas.offsetWidth;
+            specCanvas.height = specCanvas.offsetHeight;
+            sCtx.clearRect(0, 0, specCanvas.width, specCanvas.height);
+            sCtx.beginPath();
+            sCtx.strokeStyle = "#00e5ff";
+            sCtx.lineWidth = 2;
+            for (let x = 0; x < specCanvas.width; x++) {
+                const y = specCanvas.height / 2 + Math.sin((x + waveOffset) * 0.05) * 18 + (Math.random() * 4 - 2);
+                if (x === 0) sCtx.moveTo(x, y); else sCtx.lineTo(x, y);
+            }
+            sCtx.stroke();
+            waveOffset += 2;
+            requestAnimationFrame(drawSpectrum);
+        }
+        drawSpectrum();
 
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Request & Get Auto Email';
+        // Hex Stream
+        const hexStreamEl = document.getElementById('hexStream');
+        function updateHexStream() {
+            const hexChars = "0123456789ABCDEF";
+            let line = "";
+            for (let i = 0; i < 8; i++) line += hexChars[Math.floor(Math.random()*16)] + hexChars[Math.floor(Math.random()*16)] + " ";
+            const el = document.createElement('div');
+            el.textContent = `0x${Math.floor(Math.random()*9000+1000).toString(16).toUpperCase()}: ${line}`;
+            hexStreamEl.appendChild(el);
+            if (hexStreamEl.children.length > 5) hexStreamEl.removeChild(hexStreamEl.children[0]);
+        }
+        setInterval(updateHexStream, 200);
 
-                    setTimeout(() => {
-                        const waUrl = `https://wa.me/923322718247?text=Hi!%20I%20submitted%20a%20request%0AName:%20${encodeURIComponent(name)}%0AService:%20${encodeURIComponent(service)}`;
-                        window.open(waUrl, '_blank');
-                    }, 1500);
+        // Database
+        const wifiDatabase = [
+            { ssid: "bazigar PTC", bssid: "E8:94:F6:3A:11:80", band: "2.4", ch: 6, sig: "-28 dBm", sec: "WPA2-PSK", fixedKey: "Quetta4829#" },
+            { ssid: "PTCL-FlashFiber_5G", bssid: "9C:C9:EB:18:72:A1", band: "5.0", ch: 36, sig: "-44 dBm", sec: "WPA2/WPA3", fixedKey: null },
+            { ssid: "StormFiber-Extreme_6G", bssid: "A4:91:B1:00:3E:45", band: "6.0", ch: 69, sig: "-52 dBm", sec: "WPA3-SAE", fixedKey: null },
+            { ssid: "Tenda-Gigabit_Office", bssid: "C8:3A:35:90:54:E2", band: "2.4", ch: 1, sig: "-58 dBm", sec: "WPA2-PSK", fixedKey: null },
+            { ssid: "TP-Link_Archer_AX90", bssid: "D8:0D:17:8F:A1:2C", band: "5.0", ch: 48, sig: "-61 dBm", sec: "WPA3-SAE", fixedKey: null },
+            { ssid: "Nayatel-UltraBroadband", bssid: "54:A7:03:77:2C:9A", band: "5.0", ch: 149, sig: "-65 dBm", sec: "WPA2-Enterprise", fixedKey: null },
+            { ssid: "FiberHome_VIP_Zone", bssid: "70:4F:57:A8:14:6B", band: "2.4", ch: 8, sig: "-69 dBm", sec: "WPA2-PSK", fixedKey: null },
+            { ssid: "Huawei-OptiXstar_VIP", bssid: "00:E0:FC:88:21:B4", band: "2.4", ch: 3, sig: "-73 dBm", sec: "WPA2-PSK", fixedKey: null }
+        ];
 
-                    document.getElementById('orderForm').reset();
-                }, function(error) {
-                    console.log('EMAIL FAILED...', error);
-                    alertBox.className = "p-3 mb-4 rounded-xl text-xs font-semibold text-center bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-                    alertBox.innerHTML = "✅ Request Received! Opening WhatsApp...";
-                    alertBox.classList.remove('hidden');
+        const sessionKeyVault = {};
+        function generatePersistentPassword() {
+            const words = ['Secure', 'Alpha', 'Fiber', 'Key', 'Pass', 'Turbo', 'Fast'];
+            const special = ['#', '@', '$', '!', '&'];
+            return `${words[Math.floor(Math.random()*words.length)]}${Math.floor(1000 + Math.random()*9000)}${special[Math.floor(Math.random()*special.length)]}`;
+        }
 
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Request & Get Auto Email';
+        let currentFilter = 'ALL', searchQuery = '';
+        function filterBand(band, btn) {
+            currentFilter = band;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderTargets();
+        }
+        function handleSearch(val) { searchQuery = val.toLowerCase().trim(); renderTargets(); }
 
-                    setTimeout(() => {
-                        const waUrl = `https://wa.me/923322718247?text=Hi!%20I%20submitted%20a%20request%0AName:%20${encodeURIComponent(name)}%0AService:%20${encodeURIComponent(service)}`;
-                        window.open(waUrl, '_blank');
-                    }, 1500);
-                });
+        function renderTargets() {
+            const container = document.getElementById('wifiContainer');
+            container.innerHTML = '';
+            const filtered = wifiDatabase.filter(item => {
+                const matchesBand = (currentFilter === 'ALL') || (item.band === currentFilter);
+                const matchesSearch = item.ssid.toLowerCase().includes(searchQuery) || item.bssid.toLowerCase().includes(searchQuery);
+                return matchesBand && matchesSearch;
+            });
+
+            filtered.forEach(target => {
+                const isVip = target.ssid === "bazigar PTC";
+                const row = document.createElement('div');
+                row.className = `wifi-row ${isVip ? 'vip-target' : ''}`;
+                row.innerHTML = `
+                    <div class="target-meta-box">
+                        <h3>${target.ssid} ${isVip ? '<span class="tag-pill">VIP TARGET</span>' : ''}</h3>
+                        <div class="specs-line">
+                            <span>BSSID: <b>${target.bssid}</b></span>
+                            <span>BAND: <b>${target.band} GHz</b></span>
+                            <span>CH: <b>${target.ch}</b></span>
+                            <span>SIG: <b>${target.sig}</b></span>
+                            <span>SEC: <b>${target.sec}</b></span>
+                        </div>
+                    </div>
+                    <button class="crack-btn" onclick="startTerminalInjection('${target.ssid}')">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        CRACK KEY
+                    </button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function startTerminalInjection(ssid) {
+            const modal = document.getElementById('termModal');
+            const logBox = document.getElementById('termLogContainer');
+            const card = document.getElementById('decryptedKeyCard');
+
+            logBox.innerHTML = '';
+            card.style.display = 'none';
+            modal.style.display = 'flex';
+            playBeep(600, 0.1, 'sawtooth');
+
+            let chosenPassword = "";
+            const found = wifiDatabase.find(w => w.ssid === ssid);
+            if (found && found.fixedKey) {
+                chosenPassword = found.fixedKey;
+            } else {
+                if (!sessionKeyVault[ssid]) sessionKeyVault[ssid] = generatePersistentPassword();
+                chosenPassword = sessionKeyVault[ssid];
+            }
+
+            const logSteps = [
+                { text: `C:\\Windows\\system32> attrib +wifi -target "${ssid}" -mode brute -force`, delay: 300, class: "cyan" },
+                { text: `[*] Initializing Raw Packet Injection on interface [wlan0mon]...`, delay: 650 },
+                { text: `[*] Sending De-Authentication frames to force re-association...`, delay: 1000 },
+                { text: `[+] 4-Way WPA2 Key Exchange handshake captured!`, delay: 1450, class: "yellow" },
+                { text: `[*] Progress: [████████████████████] 100% (580,000 kH/s)`, delay: 2000, class: "bar" },
+                { text: `[✓] HASH COLLISION MATCHED - 100% KEY EXTRACTED!`, delay: 2500, class: "green" }
+            ];
+
+            logSteps.forEach(step => {
+                setTimeout(() => {
+                    playBeep(900 + Math.random() * 400, 0.04, 'sine');
+                    const line = document.createElement('div');
+                    line.className = `term-line ${step.class || ''}`;
+                    line.textContent = step.text;
+                    logBox.appendChild(line);
+                    document.getElementById('terminalScreen').scrollTop = document.getElementById('terminalScreen').scrollHeight;
+                }, step.delay);
+            });
+
+            setTimeout(() => {
+                playBeep(1200, 0.25, 'triangle');
+                document.getElementById('recoveredPasswordDisplay').textContent = chosenPassword;
+                card.style.display = 'flex';
+                document.getElementById('terminalScreen').scrollTop = document.getElementById('terminalScreen').scrollHeight;
+            }, 2900);
+        }
+
+        function closeTerminalModal() { document.getElementById('termModal').style.display = 'none'; }
+        function copyDecryptedPassword(btn) {
+            navigator.clipboard.writeText(document.getElementById('recoveredPasswordDisplay').textContent);
+            btn.textContent = "COPIED!";
+            setTimeout(() => { btn.textContent = "COPY KEY"; }, 1500);
+        }
+
+        /* VIP Auto Wifi System Flow */
+        let youtubeShareCount = 0;
+        let fbShareCount = 0;
+
+        function startAutoWifiProcess() {
+            const modal = document.getElementById('vipTaskModal');
+            const content = document.getElementById('vipModalContent');
+            modal.style.display = 'flex';
+
+            content.innerHTML = `
+                <div style="color: #00ff77; line-height: 1.6; font-size: 13px;">
+                    <div>> Initializing Zero-Click Auto Connect...</div>
+                    <div>> Handshaking with Gateway...</div>
+                    <div style="margin-top: 15px; color: var(--neon-yellow);">Processing License Key... [Rs. 1000 VIP]</div>
+                    <div style="width: 100%; background: #111; height: 10px; border-radius: 5px; margin-top: 10px; overflow: hidden;">
+                        <div style="width: 75%; background: #00e5ff; height: 100%;"></div>
+                    </div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                content.innerHTML = `
+                    <div style="text-align: center; color: #ff2a51;">
+                        <div style="font-size: 35px; margin-bottom: 8px;">⚠️</div>
+                        <h3 style="font-size: 16px; margin-bottom: 6px;">VIP ACTIVATION FAILED: ERROR 0x8004F</h3>
+                        <p style="color: #a0c4b2; font-size: 12px; margin-bottom: 15px;">
+                            Hardware security lock detected. Unlock the Rs. 1000 Auto WiFi protocol for free by completing developer channel verification.
+                        </p>
+                        <button onclick="renderTaskFlow(1)" style="background: #ff2a51; color: #fff; border: none; padding: 10px 18px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                            UNLOCK VIA VERIFICATION
+                        </button>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        function renderTaskFlow(step) {
+            const content = document.getElementById('vipModalContent');
+            if (step === 1) {
+                content.innerHTML = `
+                    <div style="text-align: center;">
+                        <h3 style="color: var(--neon-cyan); margin-bottom: 8px;">STEP 1: SUBSCRIBE CHANNEL</h3>
+                        <p style="color: #a0c4b2; font-size: 12px; margin-bottom: 15px;">
+                            Subscribe to the official YouTube channel (@ahmedjanff) to authorize token.
+                        </p>
+                        <button onclick="openYouTubeTask()" style="background: #ff0000; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                            ▶ SUBSCRIBE @ahmedjanff
+                        </button>
+                        <div style="margin-top: 15px;">
+                            <button onclick="renderTaskFlow(2)" style="background: transparent; border: 1px solid #143527; color: #547c69; padding: 6px 12px; font-size: 11px; border-radius: 3px; cursor: pointer;">
+                                I have subscribed (Next)
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (step === 2) {
+                content.innerHTML = `
+                    <div style="text-align: center;">
+                        <h3 style="color: var(--neon-yellow); margin-bottom: 8px;">STEP 2: SHARE TO 30 USERS</h3>
+                        <p style="color: #a0c4b2; font-size: 12px; margin-bottom: 10px;">
+                            Share channel link with 30 users/groups to synchronize token.
+                        </p>
+                        <div style="font-size: 22px; color: var(--neon-cyan); font-weight: bold; margin-bottom: 12px;">
+                            <span id="ytShareDisplay">${youtubeShareCount}</span> / 30 SHARED
+                        </div>
+                        <button onclick="incrementYTShare()" style="background: var(--neon-cyan); color: #000; border: none; padding: 10px 18px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                            📤 SHARE LINK (WHATSAPP)
+                        </button>
+                    </div>
+                `;
+            } else if (step === 3) {
+                content.innerHTML = `
+                    <div style="text-align: center;">
+                        <h3 style="color: #3b5998; margin-bottom: 8px;">STEP 3: SHARE TO 50 ON FACEBOOK</h3>
+                        <p style="color: #a0c4b2; font-size: 12px; margin-bottom: 10px;">
+                            Share to 50 users or groups on Facebook.
+                        </p>
+                        <div style="font-size: 22px; color: #3b5998; font-weight: bold; margin-bottom: 12px;">
+                            <span id="fbShareDisplay">${fbShareCount}</span> / 50 SHARED
+                        </div>
+                        <button onclick="incrementFBShare()" style="background: #3b5998; color: #fff; border: none; padding: 10px 18px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                            📘 SHARE ON FACEBOOK
+                        </button>
+                    </div>
+                `;
+            } else if (step === 4) {
+                content.innerHTML = `
+                    <div style="text-align: center;">
+                        <h3 style="color: var(--neon-green); margin-bottom: 8px;">STEP 4: FINAL MEDIA UNLOCK</h3>
+                        <p style="color: #a0c4b2; font-size: 12px; margin-bottom: 15px;">
+                            Broadcast across all social media to complete unlock.
+                        </p>
+                        <button onclick="finalVerification()" style="background: var(--neon-green); color: #000; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                            ⚡ VERIFY & UNLOCK AUTO WIFI
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function openYouTubeTask() {
+            window.open(YOUTUBE_CHANNEL_URL, '_blank');
+            setTimeout(() => { renderTaskFlow(2); }, 1500);
+        }
+
+        function incrementYTShare() {
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent("Subscribe to official channel: " + YOUTUBE_CHANNEL_URL)}`, '_blank');
+            youtubeShareCount += 5;
+            if (youtubeShareCount >= 30) {
+                youtubeShareCount = 30;
+                setTimeout(() => renderTaskFlow(3), 800);
+            } else {
+                document.getElementById('ytShareDisplay').textContent = youtubeShareCount;
+            }
+        }
+
+        function incrementFBShare() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(YOUTUBE_CHANNEL_URL)}`, '_blank');
+            fbShareCount += 10;
+            if (fbShareCount >= 50) {
+                fbShareCount = 50;
+                setTimeout(() => renderTaskFlow(4), 800);
+            } else {
+                document.getElementById('fbShareDisplay').textContent = fbShareCount;
+            }
+        }
+
+        function finalVerification() {
+            alert("Verification submitted. Tokens are synchronizing.");
+            closeVipModal();
+        }
+
+        function closeVipModal() { document.getElementById('vipTaskModal').style.display = 'none'; }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") { closeTerminalModal(); closeVipModal(); }
         });
+
+        window.onload = renderTargets;
     </script>
 </body>
 </html>
