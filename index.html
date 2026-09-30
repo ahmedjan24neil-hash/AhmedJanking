@@ -1,439 +1,924 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sir AhmedJan - WiFi Router Admin Login & New User Setup</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Free Fire 3D - Babar Azam TPS</title>
     <style>
-        * {
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+        body, html { width: 100%; height: 100%; overflow: hidden; background: #080b10; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        #canvas-wrap { width: 100%; height: 100%; display: block; }
+
+        #hud { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+
+        .top-stats {
+            position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 15px;
+            background: rgba(10, 15, 20, 0.85); border: 1.5px solid #ffaa00;
+            padding: 6px 20px; border-radius: 20px; color: #fff; font-weight: bold; font-size: 13px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+        }
+        .ping { color: #00ff66; font-size: 11px; }
+
+        .map-box {
+            position: absolute; top: 15px; left: 15px; pointer-events: auto;
+            background: rgba(10, 15, 20, 0.9); border: 1px solid #ffaa00;
+            padding: 8px 12px; border-radius: 8px; color: #fff; font-size: 11px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        }
+        .map-box select {
+            background: #181d26; color: #ffaa00; border: 1px solid #ffaa00;
+            padding: 4px 8px; border-radius: 4px; font-weight: bold; outline: none; cursor: pointer;
+            margin-top: 4px; display: block;
         }
 
-        body {
-            background: radial-gradient(circle at 50% 0%, #0f172a 0%, #030712 100%);
-            color: #f8fafc;
-            overflow-x: hidden;
+        .radar-frame {
+            position: absolute; top: 85px; left: 15px;
+            width: 95px; height: 95px; border-radius: 50%;
+            background: rgba(0, 20, 10, 0.7); border: 2px solid #ffaa00;
+            overflow: hidden; pointer-events: auto;
+        }
+        #radar-canvas { width: 100%; height: 100%; }
+
+        #crosshair {
+            position: absolute; top: 50%; left: 50%; width: 24px; height: 24px;
+            transform: translate(-50%, -50%); pointer-events: none;
+        }
+        .ch-line { position: absolute; background: rgba(255,255,255,0.9); box-shadow: 0 0 2px #000; }
+        .ch-v { top: 0; left: 11px; width: 2px; height: 24px; }
+        .ch-h { top: 11px; left: 0; width: 24px; height: 2px; }
+        .ch-dot { position: absolute; top: 10px; left: 10px; width: 4px; height: 4px; background: #ff2200; border-radius: 50%; }
+
+        .bars-container {
+            position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; gap: 4px; width: 280px;
+        }
+        .bar-bg {
+            position: relative; height: 14px; background: rgba(0,0,0,0.8);
+            border-radius: 7px; overflow: hidden; border: 1px solid #444;
+        }
+        .hp-bar { height: 17px; border-color: #ffaa00; }
+        .ep-fill { width: 100%; height: 100%; background: linear-gradient(90deg, #ffbb00, #ff7700); }
+        .hp-fill { width: 100%; height: 100%; background: linear-gradient(90deg, #ff1a1a, #ffffff); }
+        .bar-text {
+            position: absolute; width: 100%; top: 0; text-align: center;
+            font-size: 10px; font-weight: 900; color: #fff; line-height: 15px; text-shadow: 1px 1px 2px #000;
         }
 
-        /* 3D Realistic Card Styling */
-        .card-3d {
-            background: rgba(17, 24, 39, 0.85);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: all 0.35s ease;
+        .weapon-deck {
+            position: absolute; bottom: 20px; right: 20px;
+            background: rgba(12, 16, 24, 0.85); border-right: 4px solid #ffaa00;
+            padding: 8px 18px; border-radius: 8px; color: #fff; text-align: right;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.7);
         }
-        .card-3d:hover {
-            border-color: #38bdf8;
-            box-shadow: 0 25px 50px rgba(56, 189, 248, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-            transform: translateY(-4px);
+        .w-name { font-size: 12px; color: #ffaa00; font-weight: bold; }
+        .w-ammo { font-size: 26px; font-weight: 900; }
+
+        .ctrl-btn {
+            position: absolute; pointer-events: auto; border-radius: 50%;
+            background: rgba(20, 24, 32, 0.7); border: 2px solid rgba(255,255,255,0.4);
+            color: #fff; font-weight: 900; display: flex; justify-content: center;
+            align-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: transform 0.08s;
+        }
+        .ctrl-btn:active { transform: scale(0.92); background: rgba(255, 153, 0, 0.8); }
+
+        #btn-fire { bottom: 85px; right: 35px; width: 75px; height: 75px; background: radial-gradient(circle, #ff4400, #990000); border-color: #ffaa00; font-size: 15px; }
+        #btn-scope { bottom: 175px; right: 40px; width: 52px; height: 52px; font-size: 11px; }
+        #btn-jump { bottom: 110px; right: 125px; width: 50px; height: 50px; font-size: 11px; }
+        #btn-crouch { bottom: 50px; right: 125px; width: 48px; height: 48px; font-size: 10px; }
+        #btn-reload { bottom: 175px; right: 105px; width: 48px; height: 48px; font-size: 10px; }
+        #btn-grenade { bottom: 175px; right: 165px; width: 48px; height: 48px; background: rgba(200, 80, 0, 0.75); border-color: #ff7700; font-size: 10px; }
+        #btn-medkit { bottom: 20px; left: 170px; width: 50px; height: 50px; background: rgba(0, 160, 60, 0.75); border-color: #00ff66; font-size: 11px; }
+
+        #joy-zone {
+            position: absolute; bottom: 30px; left: 30px; width: 120px; height: 120px;
+            border-radius: 50%; background: rgba(255, 255, 255, 0.08);
+            border: 2px dashed rgba(255, 255, 255, 0.3); pointer-events: auto;
+        }
+        #joy-knob {
+            position: absolute; top: 50%; left: 50%; width: 44px; height: 44px;
+            margin-top: -22px; margin-left: -22px; border-radius: 50%;
+            background: radial-gradient(circle, #ffaa00, #ff5500); box-shadow: 0 0 10px #ffaa00;
+            pointer-events: none;
         }
 
-        /* Glowing Neon Headers */
-        .glow-text {
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.7), 0 0 40px rgba(14, 165, 233, 0.5);
+        #scope-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.95) 48%);
+            pointer-events: none; display: none;
+        }
+        #hit-damage {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 60px rgba(255,0,0,0.7); pointer-events: none; display: none;
+        }
+        .damage-number {
+            position: absolute; font-weight: 900; font-size: 20px; pointer-events: none;
+            animation: dmgUp 0.6s forwards;
+        }
+        @keyframes dmgUp {
+            from { transform: translate(-50%, 0); opacity: 1; }
+            to { transform: translate(-50%, -40px); opacity: 0; }
         }
 
-        /* 3D Pulsing On-Image Pointer Arrow */
-        .on-image-arrow {
-            animation: bouncePointer 1.4s infinite alternate ease-in-out;
+        #status-pill {
+            position: absolute; bottom: 85px; left: 50%; transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.75); border: 1px solid #ffaa00;
+            padding: 5px 15px; border-radius: 15px; color: #ffaa00; font-size: 11px;
+            display: flex; align-items: center; gap: 8px; z-index: 50;
         }
-        @keyframes bouncePointer {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(-8px) scale(1.06); }
-        }
-
-        /* Connecting Vertical Arrow */
-        .flow-arrow-bounce {
-            animation: bounceDown 2s infinite;
-        }
-        @keyframes bounceDown {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(10px); }
-            60% { transform: translateY(5px); }
-        }
-
-        /* Floating elements */
-        .floating {
-            animation: float 4s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
+        .mini-spin { width: 12px; height: 12px; border: 2px solid #555; border-top: 2px solid #ffaa00; border-radius: 50%; animation: spin 0.6s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.0/umd/index.js"></script>
 </head>
-<body class="min-h-screen">
+<body>
 
-    <!-- HEADER / NAVBAR -->
-    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/40 transform -rotate-3">
-                    <i class="fa-solid fa-wifi text-white text-2xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500">Sir AhmedJan</h1>
-                    <p class="text-xs text-slate-400">Router Admin & New User Setup Guide</p>
-                </div>
-            </div>
-            <a href="#steps-guide" class="px-5 py-2.5 rounded-xl font-semibold text-sm bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition">
-                <i class="fa-solid fa-arrow-down mr-2"></i> Start Steps
-            </a>
-        </div>
-    </header>
+    <div id="scope-overlay"></div>
+    <div id="hit-damage"></div>
 
-    <!-- HERO SECTION -->
-    <section class="relative py-16 px-4 max-w-6xl mx-auto text-center">
-        <div class="floating inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/90 border border-cyan-500/40 text-cyan-400 text-xs font-semibold mb-6 shadow-lg shadow-cyan-950">
-            <i class="fa-solid fa-user-shield text-cyan-400"></i> Official Step-by-Step Router & User Configuration
-        </div>
-        
-        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
-            WiFi Router IP Login, <br><span class="glow-text text-cyan-400">Admin Setup & Add New User</span>
-        </h1>
-        <p class="text-slate-300 text-sm md:text-lg max-w-3xl mx-auto mb-10 leading-relaxed">
-            Router IP se login karne se lekar naya user add karne tak har screenshot ke upar <b>Arrow aur Pointer</b> laga diya gaya hai taake aapko pata chal sake ke kahan click karna hai.
-        </p>
+    <div id="status-pill">
+        <div class="mini-spin"></div>
+        <span id="status-text">Gun Aligned Forward & A/D Keys Swapped...</span>
+    </div>
 
-        <!-- Quick 3 Cards Overview -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
-            <div class="card-3d p-5 rounded-2xl border-l-4 border-l-cyan-400">
-                <div class="text-cyan-400 text-xl font-bold mb-1 flex items-center gap-2">
-                    <i class="fa-solid fa-right-to-bracket"></i> Phase 1
-                </div>
-                <h4 class="text-white font-bold text-sm">Router IP & Admin Login</h4>
-                <p class="text-xs text-slate-400 mt-1">Browser me router IP enter karein aur login credential verify karein.</p>
-            </div>
-
-            <div class="card-3d p-5 rounded-2xl border-l-4 border-l-blue-400">
-                <div class="text-blue-400 text-xl font-bold mb-1 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders"></i> Phase 2
-                </div>
-                <h4 class="text-white font-bold text-sm">Settings & Wireless Setup</h4>
-                <p class="text-xs text-slate-400 mt-1">Main Settings open karein, naya SSID/WiFi naam aur security password darj karein.</p>
-            </div>
-
-            <div class="card-3d p-5 rounded-2xl border-l-4 border-l-emerald-400">
-                <div class="text-emerald-400 text-xl font-bold mb-1 flex items-center gap-2">
-                    <i class="fa-solid fa-user-plus"></i> Phase 3
-                </div>
-                <h4 class="text-white font-bold text-sm">Add New User & Save</h4>
-                <p class="text-xs text-slate-400 mt-1">User Management me jaakar naya user create karein aur settings apply karein.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- STEPS WALKTHROUGH -->
-    <main id="steps-guide" class="max-w-4xl mx-auto px-4 pb-28">
-
-        <div class="text-center mb-12">
-            <span class="text-cyan-400 text-xs font-bold uppercase tracking-widest bg-cyan-950/80 px-3 py-1 rounded-full border border-cyan-800">Screenshot Guide</span>
-            <h2 class="text-2xl md:text-3xl font-bold text-white mt-3">Tamam Steps Ki Tafseel (With On-Image Arrows)</h2>
-            <p class="text-slate-400 text-xs md:text-sm mt-1">Picture par click karke aap bari screen me Next / Previous buttons ke sath dekh sakte hain.</p>
+    <div id="hud">
+        <div class="map-box">
+            <span>MAP SELECTOR:</span>
+            <select id="mapSelect">
+                <option value="0">1: Army Extreme Car Driving</option>
+                <option value="1">2: Arizona Driving School</option>
+                <option value="2">3: Prison Breakout Escape</option>
+            </select>
         </div>
 
-        <div class="space-y-12" id="steps-container">
-            <!-- Dynamic JavaScript Rendering -->
+        <div class="radar-frame">
+            <canvas id="radar-canvas" width="95" height="95"></canvas>
         </div>
 
-    </main>
+        <div class="top-stats">
+            <span class="ping">● 28ms</span>
+            <div>ALIVE: <span id="alive-count" style="color:#ffaa00;">6</span></div>
+            <div>KILLS: <span id="kill-count" style="color:#ff2200;">0</span></div>
+        </div>
 
-    <!-- LIGHTBOX / FULL IMAGE MODAL WITH INSIDE ARROWS -->
-    <div id="imageModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl hidden flex items-center justify-center p-2 sm:p-6" onclick="closeModal()">
-        
-        <!-- Close Button -->
-        <button onclick="closeModal()" class="absolute top-5 right-5 z-50 text-white/80 hover:text-red-400 text-2xl bg-slate-800/80 w-12 h-12 rounded-full border border-slate-700 flex items-center justify-center transition">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
+        <div id="crosshair">
+            <div class="ch-line ch-v"></div>
+            <div class="ch-line ch-h"></div>
+            <div class="ch-dot"></div>
+        </div>
 
-        <!-- Previous Arrow Inside Picture Modal -->
-        <button onclick="prevStep(event)" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-50 text-cyan-400 hover:text-white bg-slate-900/90 hover:bg-cyan-600 border border-cyan-500/50 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition transform hover:scale-110">
-            <i class="fa-solid fa-chevron-left text-xl sm:text-2xl"></i>
-        </button>
-
-        <!-- Next Arrow Inside Picture Modal -->
-        <button onclick="nextStep(event)" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-50 text-cyan-400 hover:text-white bg-slate-900/90 hover:bg-cyan-600 border border-cyan-500/50 w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition transform hover:scale-110">
-            <i class="fa-solid fa-chevron-right text-xl sm:text-2xl"></i>
-        </button>
-
-        <!-- Modal Card Content -->
-        <div class="max-w-4xl w-full bg-slate-900 border border-slate-700 p-3 sm:p-5 rounded-2xl shadow-2xl relative" onclick="event.stopPropagation()">
-            
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
-                <span id="modalStepNum" class="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-lg text-xs font-bold border border-cyan-500/30">Step 1/15</span>
-                <h3 id="modalCaption" class="text-cyan-300 font-bold text-sm sm:text-base truncate px-2"></h3>
-                <span class="text-xs text-slate-400 hidden sm:block"><i class="fa-solid fa-keyboard mr-1"></i> Left/Right Arrow Keys</span>
+        <div class="bars-container">
+            <div class="bar-bg">
+                <div id="ep-fill" class="ep-fill"></div>
+                <div class="bar-text">EP <span id="ep-val">200</span>/200</div>
             </div>
-
-            <!-- Modal Image Container With Interactive Pointer -->
-            <div class="relative bg-black rounded-xl overflow-hidden flex items-center justify-center max-h-[68vh]">
-                <img id="modalImg" src="" alt="Full Screen Step" class="max-w-full max-h-[68vh] object-contain rounded-xl">
-                
-                <!-- Floating On-Image Arrow inside Modal -->
-                <div class="on-image-arrow absolute bottom-4 right-4 bg-cyan-500 text-slate-950 font-bold px-3 py-1.5 rounded-xl shadow-2xl border border-white/40 flex items-center gap-2 text-xs">
-                    <i class="fa-solid fa-arrow-pointer text-slate-950 text-sm"></i>
-                    <span id="modalPointer">Action Pointer</span>
-                </div>
+            <div class="bar-bg hp-bar">
+                <div id="hp-fill" class="hp-fill"></div>
+                <div class="bar-text">HP <span id="hp-val">200</span>/200</div>
             </div>
+        </div>
 
-            <p id="modalDesc" class="text-slate-300 text-xs sm:text-sm mt-3 bg-slate-800/70 p-3 rounded-xl border border-slate-700/50 leading-relaxed"></p>
+        <div class="weapon-deck">
+            <div class="w-name">AK-103 REAL FORWARD</div>
+            <div class="w-ammo"><span id="clip-val">30</span>/<span id="reserve-val">180</span></div>
+        </div>
+
+        <div id="btn-fire" class="ctrl-btn">FIRE</div>
+        <div id="btn-scope" class="ctrl-btn">SCOPE</div>
+        <div id="btn-jump" class="ctrl-btn">JUMP</div>
+        <div id="btn-crouch" class="ctrl-btn">CROUCH</div>
+        <div id="btn-reload" class="ctrl-btn">RELOAD</div>
+        <div id="btn-grenade" class="ctrl-btn">BOMB</div>
+        <div id="btn-medkit" class="ctrl-btn">+MED</div>
+
+        <div id="joy-zone">
+            <div id="joy-knob"></div>
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-slate-800 bg-slate-950 py-10 text-center text-slate-400 text-sm">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex items-center justify-center space-x-3 mb-3">
-                <i class="fa-solid fa-wifi text-cyan-400 text-xl"></i>
-                <span class="font-bold text-white tracking-wider text-lg">Sir AhmedJan</span>
-            </div>
-            <p class="text-xs text-slate-400 mb-1">WiFi Router IP Login, Admin Access & User Creation Guide</p>
-            <p class="text-[11px] text-slate-600">© 2026 Sir AhmedJan - All Rights Reserved.</p>
-        </div>
-    </footer>
+    <div id="canvas-wrap"></div>
 
-    <!-- SCRIPT WITH EXACT 15 IMAGES & ON-PICTURE ARROWS -->
     <script>
-        const stepData = [
-            { 
-                num: 1, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/1.jpg", 
-                title: "Step 1: Router IP Se Login Page Open Karein", 
-                desc: "Browser me router ka default IP address (192.168.1.1 ya 192.168.0.1) enter karein taake login panel open ho sake.",
-                pointerText: "Router IP Address & Login Interface"
-            },
-            { 
-                num: 2, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/2.jpg", 
-                title: "Step 2: Admin Login Credentials Enter Karein", 
-                desc: "Router ka official admin username aur password enter karein aur Login button par click karein.",
-                pointerText: "Username, Password & Login Button"
-            },
-            { 
-                num: 3, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/3.jpg", 
-                title: "Step 3: Main Dashboard Aur Status Page", 
-                desc: "Login hone ke baad dashboard open hoga jahan router ki online information aur connected devices show hoti hain.",
-                pointerText: "Main Dashboard Status Overview"
-            },
-            { 
-                num: 4, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/4.jpg", 
-                title: "Step 4: Network Ya Settings Menu Me Jayein", 
-                desc: "Menu bar me jaakar 'Network Settings' ya 'Advanced Configuration' tab ko open karein.",
-                pointerText: "Click Network / Settings Menu"
-            },
-            { 
-                num: 5, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/5.jpg", 
-                title: "Step 5: Wireless / WLAN Settings Select Karein", 
-                desc: "Naya WiFi banane ke liye 'Wireless (WLAN)' section ko click karein.",
-                pointerText: "Wireless / WLAN Settings Option"
-            },
-            { 
-                num: 6, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/6.jpg", 
-                title: "Step 6: Naya WiFi Name (SSID) Enter Karein", 
-                desc: "SSID Name field me apna naya WiFi network naam darj karein jo devices me search hoga.",
-                pointerText: "SSID / WiFi Name Input Field"
-            },
-            { 
-                num: 7, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/7.jpg", 
-                title: "Step 7: WiFi Security Aur Password Set Karein", 
-                desc: "Security Mode me WPA2/WPA3 select karein aur strong password enter karein taake network secure rahe.",
-                pointerText: "Security Encryption & Password Field"
-            },
-            { 
-                num: 8, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/8.jpg", 
-                title: "Step 8: User Management / Admin Settings Me Jayein", 
-                desc: "System Management menu me jakar 'User Account' ya 'Admin Management' option ko open karein.",
-                pointerText: "Click User Management / Account Settings"
-            },
-            { 
-                num: 9, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/9.jpg", 
-                title: "Step 9: 'Add New User' Button Par Click Karein", 
-                desc: "Naya user / admin banane ke liye screen par diye gaye 'Add User' ya '+' button par click karein.",
-                pointerText: "Click 'Add User' / Create Button"
-            },
-            { 
-                num: 10, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/10.jpg", 
-                title: "Step 10: New User Ka Username & Password Darj Karein", 
-                desc: "Naye user ke liye Name, Username, aur New Password set karein.",
-                pointerText: "Enter New User Credentials"
-            },
-            { 
-                num: 11, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/11.jpg", 
-                title: "Step 11: User Permissions Aur Role Select Karein", 
-                desc: "User ko 'Admin' ya 'Standard User' ka role dein aur access rules enable karein.",
-                pointerText: "Select User Privilege / Role"
-            },
-            { 
-                num: 12, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/12.jpg", 
-                title: "Step 12: User List Aur Changes Review Karein", 
-                desc: "User create hone ke baad list me check karein ke user successfully add ho chuka hai ya nahi.",
-                pointerText: "Check User in Management List"
-            },
-            { 
-                num: 13, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/13.jpg", 
-                title: "Step 13: 'Apply / Save' Button Par Click Karein", 
-                desc: "Tamam banyi hui settings aur naye user ko router memory me save karne ke liye 'Save / Apply' dabayein.",
-                pointerText: "Click 'Save / Apply' Button"
-            },
-            { 
-                num: 14, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/15.jpg", 
-                title: "Step 14: Router Reboot / Restart Karein", 
-                desc: "Settings apply hone ke baad router ko reboot karein taake naya user aur WiFi theek se active ho sake.",
-                pointerText: "Click 'Reboot Router' Option"
-            },
-            { 
-                num: 15, 
-                img: "https://raw.githubusercontent.com/ahmedjan24neil-hash/Wifipic/main/16.jpg", 
-                title: "Step 15: Naye WiFi & User Login Se Test Karein", 
-                desc: "Apne mobile/laptop ko naye WiFi se connect karein aur naye user credentials se login karke check karein.",
-                pointerText: "Final Connected & Active Status"
+        const DEDICATED_GATEWAY = "https://amethyst-traditional-moose-744.mypinata.cloud/ipfs/";
+
+        const ASSETS = {
+            maps: [
+                { name: "menu_map_-_army_extreme_car_driving_3d.glb", cid: "bafybeiglhhwzxnaupw7fo6f3liytv7brj4b67xoewkl3wvpng3vfhhmuq4" },
+                { name: "arizona_map_-_driving_school_2016.glb", cid: "bafybeia3b4nhxlytk6yq2d27dcuyqd2cft5v7c5ruezbtnbv6d3qmaxhhu" },
+                { name: "map_-_prison_breakout_sniper_escape.glb", cid: "bafybeiglyzla47rzwjh7bbkcd4od63oow6uuoqij7vkutewe3lqq3e4xsa" }
+            ],
+            gun: { name: "GunAK-103.fbx", cid: "bafybeibjiw2giuqa2gklu4ar47gfjejnrvfrkvbowrckrb4uegitkgdona" },
+            shooterPackFolder: "bafybeiblx6h2kzraj4gehij3an5kgp5to3rudskw35suej5zvo6ppiour4",
+            characterFile: "babar-azam.fbx",
+            animations: {
+                idle: "rifle aiming idle.fbx",
+                run: "rifle run.fbx",
+                walk: "walking.fbx",
+                run_back: "run backwards.fbx",
+                strafe_left: "strafe left.fbx",
+                strafe_right: "strafe right.fbx",
+                fire: "firing rifle.fbx",
+                jump: "rifle jump.fbx",
+                reload: "reloading.fbx",
+                hit: "hit reaction.fbx",
+                grenade: "toss grenade.fbx"
             }
-        ];
+        };
 
-        let currentStepIndex = 0;
-        const container = document.getElementById('steps-container');
+        class SoundFX {
+            constructor() { this.ctx = null; }
+            init() { if(!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); }
+            gunshot() {
+                this.init();
+                const buf = this.ctx.createBuffer(1, this.ctx.sampleRate * 0.2, this.ctx.sampleRate);
+                const d = buf.getChannelData(0);
+                for(let i=0; i<d.length; i++) d[i] = (Math.random()*2-1)*Math.exp(-i/(d.length*0.2));
+                const s = this.ctx.createBufferSource(); s.buffer = buf;
+                const f = this.ctx.createBiquadFilter(); f.type = "lowpass";
+                f.frequency.setValueAtTime(1400, this.ctx.currentTime);
+                f.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime+0.18);
+                s.connect(f); f.connect(this.ctx.destination);
+                s.start();
+            }
+            explosion() {
+                this.init();
+                const buf = this.ctx.createBuffer(1, this.ctx.sampleRate * 0.8, this.ctx.sampleRate);
+                const d = buf.getChannelData(0);
+                for(let i=0; i<d.length; i++) d[i] = (Math.random()*2-1)*Math.exp(-i/(d.length*0.4));
+                const s = this.ctx.createBufferSource(); s.buffer = buf;
+                const f = this.ctx.createBiquadFilter(); f.type = "lowpass";
+                f.frequency.setValueAtTime(400, this.ctx.currentTime);
+                f.frequency.exponentialRampToValueAtTime(30, this.ctx.currentTime+0.7);
+                s.connect(f); f.connect(this.ctx.destination);
+                s.start();
+            }
+            hit(isHead) {
+                this.init();
+                const o = this.ctx.createOscillator();
+                const g = this.ctx.gainNode || this.ctx.createGain();
+                o.frequency.setValueAtTime(isHead ? 950 : 380, this.ctx.currentTime);
+                o.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + 0.1);
+                g.gain.setValueAtTime(0.3, this.ctx.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
+                o.connect(g); g.connect(this.ctx.destination);
+                o.start(); o.stop(this.ctx.currentTime + 0.1);
+            }
+            reload() {
+                this.init();
+                const o = this.ctx.createOscillator();
+                o.frequency.setValueAtTime(300, this.ctx.currentTime);
+                o.frequency.setValueAtTime(600, this.ctx.currentTime + 0.25);
+                const g = this.ctx.createGain();
+                g.gain.setValueAtTime(0.25, this.ctx.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.4);
+                o.connect(g); g.connect(this.ctx.destination);
+                o.start(); o.stop(this.ctx.currentTime + 0.4);
+            }
+        }
+        const sfx = new SoundFX();
 
-        // Render All Steps
-        stepData.forEach((step, index) => {
-            const isLast = index === stepData.length - 1;
+        const container = document.getElementById('canvas-wrap');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x6aa8d8);
+        scene.fog = new THREE.FogExp2(0xb2d6f5, 0.0035);
 
-            const cardWrapper = document.createElement('div');
-            cardWrapper.className = "flex flex-col items-center";
+        const camera = new THREE.PerspectiveCamera(58, window.innerWidth / window.innerHeight, 0.1, 1500);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        container.appendChild(renderer.domElement);
 
-            cardWrapper.innerHTML = `
-                <div class="card-3d w-full rounded-3xl p-5 sm:p-7 relative overflow-hidden">
-                    
-                    <!-- Step Header -->
-                    <div class="flex items-center justify-between mb-4 flex-wrap gap-3 border-b border-slate-700/60 pb-3">
-                        <div class="flex items-center space-x-3">
-                            <span class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-cyan-500/20 text-cyan-400 font-extrabold flex items-center justify-center border border-cyan-500/40 text-base sm:text-lg">
-                                ${step.num}
-                            </span>
-                            <div>
-                                <h3 class="text-lg sm:text-xl font-bold text-white">${step.title}</h3>
-                                <p class="text-[11px] text-cyan-400">Sir AhmedJan Step #${step.num}</p>
-                            </div>
-                        </div>
-                        <span class="text-xs font-semibold px-3 py-1 bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 rounded-full">
-                            <i class="fa-solid fa-expand mr-1"></i> Zoom View
-                        </span>
-                    </div>
+        const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444455, 0.9);
+        scene.add(hemiLight);
 
-                    <!-- Step Instruction Description -->
-                    <p class="text-slate-300 text-xs sm:text-sm mb-4 leading-relaxed bg-slate-900/80 p-3.5 rounded-xl border border-slate-800">
-                        <i class="fa-solid fa-circle-check text-cyan-400 mr-2"></i>${step.desc}
-                    </p>
+        const sun = new THREE.DirectionalLight(0xfff3d6, 1.4);
+        sun.position.set(100, 180, 80);
+        sun.castShadow = true;
+        sun.shadow.mapSize.width = 2048; sun.shadow.mapSize.height = 2048;
+        scene.add(sun);
 
-                    <!-- Image with Visual Pointer Arrow Directly on Picture -->
-                    <div class="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-700 cursor-pointer group shadow-2xl" onclick="openModal(${index})">
-                        
-                        <img src="${step.img}" alt="${step.title}" class="w-full max-h-[480px] object-contain mx-auto rounded-2xl group-hover:scale-102 transition duration-300" loading="lazy">
-                        
-                        <!-- ON-PICTURE 3D ARROW & POINTER BADGE -->
-                        <div class="on-image-arrow absolute top-4 right-4 bg-cyan-500 text-slate-950 font-extrabold px-3.5 py-1.5 rounded-xl shadow-2xl border border-white/50 flex items-center gap-2 text-xs backdrop-blur-md">
-                            <i class="fa-solid fa-arrow-pointer text-slate-950 text-sm"></i>
-                            <span>${step.pointerText}</span>
-                        </div>
+        const mapGroup = new THREE.Group();
+        scene.add(mapGroup);
 
-                        <!-- Hover Overlay -->
-                        <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                            <span class="px-4 py-2 bg-black/80 backdrop-blur-md rounded-xl text-white font-medium text-xs border border-cyan-400">
-                                <i class="fa-solid fa-magnifying-glass-plus mr-1 text-cyan-400"></i> Open With Inside Arrows
-                            </span>
-                        </div>
-                    </div>
-                </div>
+        const player = {
+            group: new THREE.Group(),
+            model: null,
+            weaponHolder: new THREE.Group(),
+            weapon: null,
+            rightHandBone: null,
+            mixer: null,
+            actions: {},
+            currentAnim: null,
+            hp: 2000000, maxHp: 2000000,
+            ep: 200, maxEp: 200,
+            ammo: 30, maxAmmo: 30,
+            reserveAmmo: 180,
+            velocity: new THREE.Vector3(),
+            speed: 11,
+            rotationY: 0,
+            pitch: 0,
+            isGrounded: true,
+            isScoped: false,
+            isCrouching: false,
+            kills: 0
+        };
+        scene.add(player.group);
+        player.group.add(player.weaponHolder);
 
-                ${!isLast ? `
-                <!-- Directional Flow Arrow Between Steps -->
-                <div class="my-6 flex flex-col items-center">
-                    <div class="w-0.5 h-6 bg-gradient-to-b from-cyan-500 to-blue-500"></div>
-                    <div class="flow-arrow-bounce w-10 h-10 rounded-full bg-slate-800 border border-cyan-400 flex items-center justify-center text-cyan-400 shadow-lg shadow-cyan-500/20 my-1">
-                        <i class="fa-solid fa-arrow-down text-sm"></i>
-                    </div>
-                    <div class="w-0.5 h-6 bg-gradient-to-b from-blue-500 to-cyan-500"></div>
-                </div>
-                ` : ''}
-            `;
+        function playAnimation(name, duration = 0.25, isOnce = false) {
+            if (!player.actions[name] || player.currentAnim === name) return;
+            const prev = player.actions[player.currentAnim];
+            const next = player.actions[name];
 
-            container.appendChild(cardWrapper);
+            if (isOnce) {
+                next.reset();
+                next.setLoop(THREE.LoopOnce, 1);
+                next.clampWhenFinished = true;
+                if (prev) prev.crossFadeTo(next, duration, true);
+                next.play();
+                player.currentAnim = name;
+
+                const onFinished = () => {
+                    player.mixer.removeEventListener('finished', onFinished);
+                    playAnimation('idle', 0.2);
+                };
+                player.mixer.addEventListener('finished', onFinished);
+            } else {
+                next.enabled = true;
+                next.setEffectiveTimeScale(1);
+                next.setEffectiveWeight(1);
+                if (prev) {
+                    prev.crossFadeTo(next, duration, true);
+                } else {
+                    next.play();
+                }
+                next.play();
+                player.currentAnim = name;
+            }
+        }
+
+        const enemies = [];
+        const botMat = new THREE.MeshLambertMaterial({ color: 0xd92626 });
+        function spawnBots() {
+            for(let i=0; i<6; i++) {
+                const b = new THREE.Group();
+                const body = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.35, 1.6, 8), botMat);
+                body.position.y = 1.1;
+                b.add(body);
+                const head = new THREE.Mesh(new THREE.SphereGeometry(0.3, 10, 10), new THREE.MeshLambertMaterial({ color: 0xffd0a8 }));
+                head.position.y = 2.15;
+                b.add(head);
+
+                const angle = (i / 6) * Math.PI * 2;
+                const r = 35 + Math.random() * 45;
+                b.position.set(Math.cos(angle)*r, 0, Math.sin(angle)*r);
+                b.userData = { hp: 100, alive: true, shootCd: 1.5 + Math.random()*2 };
+                scene.add(b);
+                enemies.push(b);
+            }
+        }
+        spawnBots();
+
+        const gltfLoader = new THREE.GLTFLoader();
+        const fbxLoader = new THREE.FBXLoader();
+
+        function updateStatus(text) {
+            document.getElementById('status-text').innerText = text;
+        }
+
+        const steelMat = new THREE.MeshStandardMaterial({ color: 0x1f2226, metalness: 0.88, roughness: 0.28 });
+        const woodMat = new THREE.MeshStandardMaterial({ color: 0x4a2410, roughness: 0.65, metalness: 0.1 });
+        const magMat = new THREE.MeshStandardMaterial({ color: 0x111214, roughness: 0.45, metalness: 0.2 });
+
+        // --- AK-103 ROTATION & ALIGNMENT CONTROLS ---
+        function loadAK103() {
+            const gunUrl = `${DEDICATED_GATEWAY}${ASSETS.gun.cid}`;
+            fbxLoader.load(gunUrl, (fbx) => {
+                fbx.scale.set(0.011, 0.011, 0.011);
+
+                let partIdx = 0;
+                fbx.traverse(c => {
+                    if (c.isMesh) {
+                        c.castShadow = true;
+                        c.frustumCulled = false;
+                        if (partIdx % 3 === 0) c.material = woodMat;
+                        else if (partIdx % 3 === 1) c.material = magMat;
+                        else c.material = steelMat;
+                        partIdx++;
+                    }
+                });
+
+                // ==========================================
+                // 👉 GUN ROTATION (یہاں سے گن کو گھمائیں):
+                // ==========================================
+                const gunRotX = 0;             // اوپر / نیچے کا زاویہ
+                const gunRotY = Math.PI /-2.10;   // دائیں / بائیں کا زاویہ (90 Degree Forward)
+                const gunRotZ = 0;             // رول / ترچھا کرنے کا زاویہ
+
+                fbx.rotation.set(gunRotX, gunRotY, gunRotZ);
+
+                // گن کی پوزیشن (ہاتھ کے اندر سیٹ کرنے کے لیے)
+                fbx.position.set(0.00, -0.06, 0.12);
+
+                player.weapon = fbx;
+                player.weaponHolder.add(fbx);
+            });
+        }
+
+        function loadBabarAzam() {
+            updateStatus("Downloading Babar Azam Model...");
+            const charUrl = `${DEDICATED_GATEWAY}${ASSETS.shooterPackFolder}/${ASSETS.characterFile}`;
+
+            fbxLoader.load(charUrl, (fbx) => {
+                const box = new THREE.Box3().setFromObject(fbx);
+                const size = new THREE.Vector3();
+                box.getSize(size);
+
+                let targetHeight = 1.9;
+                if (size.y > 0) {
+                    let s = targetHeight / size.y;
+                    fbx.scale.set(s, s, s);
+                } else {
+                    fbx.scale.set(0.015, 0.015, 0.015);
+                }
+
+                box.setFromObject(fbx);
+                fbx.position.y -= box.min.y;
+
+                fbx.traverse(c => {
+                    if (c.isMesh || c.isSkinnedMesh) {
+                        c.castShadow = true;
+                        c.receiveShadow = true;
+                        c.frustumCulled = false;
+                        if (c.material) {
+                            if (Array.isArray(c.material)) {
+                                c.material.forEach(m => { m.transparent = false; m.opacity = 1.0; m.side = THREE.DoubleSide; });
+                            } else {
+                                c.material.transparent = false; c.material.opacity = 1.0; c.material.side = THREE.DoubleSide;
+                            }
+                        }
+                    }
+
+                    const name = c.name.toLowerCase();
+                    if (c.isBone && (name.includes("righthand") || name.includes("hand_r") || name.includes("hand.r"))) {
+                        player.rightHandBone = c;
+                    }
+                });
+
+                // Character back faces camera
+                fbx.rotation.y = Math.PI;
+
+                player.model = fbx;
+                player.group.add(fbx);
+
+                player.mixer = new THREE.AnimationMixer(fbx);
+                loadAllAnimations();
+
+                updateStatus("✅ Controls & Gun Forward Aim Fixed!");
+                setTimeout(() => document.getElementById('status-pill').style.display = 'none', 2000);
+            });
+        }
+
+        function loadAllAnimations() {
+            Object.keys(ASSETS.animations).forEach(key => {
+                const fileName = ASSETS.animations[key];
+                const animUrl = `${DEDICATED_GATEWAY}${ASSETS.shooterPackFolder}/${encodeURIComponent(fileName)}`;
+                
+                fbxLoader.load(animUrl, (animFbx) => {
+                    if (animFbx.animations && animFbx.animations.length > 0) {
+                        const clip = animFbx.animations[0];
+
+                        clip.tracks = clip.tracks.filter(track => {
+                            if (track.name.toLowerCase().includes("hips.position")) {
+                                const vals = track.values;
+                                for (let i = 0; i < vals.length; i += 3) {
+                                    vals[i] = 0;
+                                    vals[i + 2] = 0;
+                                }
+                            }
+                            return true;
+                        });
+
+                        const action = player.mixer.clipAction(clip);
+                        player.actions[key] = action;
+
+                        if (key === 'idle') {
+                            action.play();
+                            player.currentAnim = 'idle';
+                        }
+                    }
+                });
+            });
+        }
+
+        function loadPinataMap(idx) {
+            const m = ASSETS.maps[idx];
+            updateStatus(`Loading 3D Map: ${m.name}...`);
+            document.getElementById('status-pill').style.display = 'flex';
+
+            const mapUrl = `${DEDICATED_GATEWAY}${m.cid}`;
+            gltfLoader.load(mapUrl, (gltf) => {
+                while(mapGroup.children.length > 0) mapGroup.remove(mapGroup.children[0]);
+                const mapScene = gltf.scene;
+                mapScene.scale.set(1.5, 1.5, 1.5);
+                mapGroup.add(mapScene);
+                updateStatus("✅ 3D Map Loaded!");
+                setTimeout(() => document.getElementById('status-pill').style.display = 'none', 1500);
+            });
+        }
+
+        loadPinataMap(0);
+        loadAK103();
+        loadBabarAzam();
+
+        document.getElementById('mapSelect').addEventListener('change', (e) => {
+            loadPinataMap(parseInt(e.target.value));
         });
 
-        // Lightbox Functions
-        function openModal(index) {
-            currentStepIndex = index;
-            updateModalContent();
-            document.getElementById('imageModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function updateModalContent() {
-            const step = stepData[currentStepIndex];
-            document.getElementById('modalImg').src = step.img;
-            document.getElementById('modalStepNum').innerText = `Step ${step.num} of ${stepData.length}`;
-            document.getElementById('modalCaption').innerText = step.title;
-            document.getElementById('modalDesc').innerText = step.desc;
-            document.getElementById('modalPointer').innerText = step.pointerText;
-        }
-
-        function prevStep(e) {
-            if (e) e.stopPropagation();
-            if (currentStepIndex > 0) {
-                currentStepIndex--;
-            } else {
-                currentStepIndex = stepData.length - 1;
+        // Collision detection with buildings/walls
+        const collisionRay = new THREE.Raycaster();
+        function checkWallCollision(pos, moveDir, checkDist) {
+            if (!mapGroup || mapGroup.children.length === 0) return false;
+            const heights = [0.4, 1.0, 1.5];
+            for (let i = 0; i < heights.length; i++) {
+                const origin = pos.clone().add(new THREE.Vector3(0, heights[i], 0));
+                collisionRay.set(origin, moveDir);
+                const hits = collisionRay.intersectObjects(mapGroup.children, true);
+                if (hits.length > 0 && hits[0].distance < (checkDist + 0.65)) {
+                    return true;
+                }
             }
-            updateModalContent();
+            return false;
         }
 
-        function nextStep(e) {
-            if (e) e.stopPropagation();
-            if (currentStepIndex < stepData.length - 1) {
-                currentStepIndex++;
-            } else {
-                currentStepIndex = 0;
-            }
-            updateModalContent();
+        // Grenade 900ms throw delay
+        const activeGrenades = [];
+        function throwGrenade() {
+            playAnimation('grenade', 0.15, true);
+            setTimeout(() => {
+                const gMesh = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.18, 12, 12),
+                    new THREE.MeshStandardMaterial({ color: 0x243b18, roughness: 0.4, metalness: 0.8 })
+                );
+                gMesh.position.copy(player.group.position).add(new THREE.Vector3(0, 1.6, 0));
+                
+                const throwDir = new THREE.Vector3(0, 0.4, 1).applyEuler(new THREE.Euler(player.pitch, player.rotationY, 0, 'YXZ')).normalize();
+                const vel = throwDir.multiplyScalar(18);
+
+                scene.add(gMesh);
+                activeGrenades.push({ mesh: gMesh, vel: vel, timer: 2.2 });
+            }, 900);
         }
 
-        function closeModal() {
-            document.getElementById('imageModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
+        const keys = {};
+        let isLocked = false;
 
-        // Keyboard navigation
-        window.addEventListener('keydown', function(e) {
-            const modal = document.getElementById('imageModal');
-            if (!modal.classList.contains('hidden')) {
-                if (e.key === 'ArrowLeft') prevStep();
-                if (e.key === 'ArrowRight') nextStep();
-                if (e.key === 'Escape') closeModal();
+        window.addEventListener('keydown', e => {
+            keys[e.code] = true;
+            if(e.code === 'KeyR') reloadWeapon();
+            if(e.code === 'Space') jump();
+            if(e.code === 'KeyC') toggleCrouch();
+            if(e.code === 'KeyG') throwGrenade();
+        });
+        window.addEventListener('keyup', e => keys[e.code] = false);
+
+        renderer.domElement.addEventListener('click', () => renderer.domElement.requestPointerLock());
+        document.addEventListener('pointerlockchange', () => isLocked = (document.pointerLockElement === renderer.domElement));
+
+        window.addEventListener('mousemove', e => {
+            if(!isLocked) return;
+            const sens = player.isScoped ? 0.0014 : 0.0028;
+            player.rotationY -= e.movementX * sens;
+            player.pitch -= e.movementY * sens;
+            player.pitch = Math.max(-0.6, Math.min(0.5, player.pitch));
+        });
+
+        window.addEventListener('mousedown', e => {
+            if(e.button === 0 && isLocked) fire();
+            if(e.button === 2) toggleScope();
+        });
+        window.addEventListener('contextmenu', e => e.preventDefault());
+
+        const joyZone = document.getElementById('joy-zone');
+        const joyKnob = document.getElementById('joy-knob');
+        let joyActive = false, joyOrigin = { x: 0, y: 0 };
+        const joyDir = { x: 0, y: 0 };
+
+        joyZone.addEventListener('touchstart', e => {
+            joyActive = true;
+            const rect = joyZone.getBoundingClientRect();
+            joyOrigin = { x: rect.left + rect.width/2, y: rect.top + rect.height/2 };
+        });
+        window.addEventListener('touchmove', e => {
+            if(!joyActive) return;
+            const t = e.touches[0];
+            let dx = t.clientX - joyOrigin.x, dy = t.clientY - joyOrigin.y;
+            const dist = Math.hypot(dx, dy);
+            const maxR = 40;
+            if(dist > maxR) { dx = (dx/dist)*maxR; dy = (dy/dist)*maxR; }
+            joyKnob.style.transform = `translate(${dx}px, ${dy}px)`;
+            joyDir.x = dx / maxR; joyDir.y = -dy / maxR;
+        });
+        window.addEventListener('touchend', () => {
+            joyActive = false;
+            joyKnob.style.transform = 'translate(0,0)';
+            joyDir.x = 0; joyDir.y = 0;
+        });
+
+        let lastTouchX = 0, lastTouchY = 0;
+        renderer.domElement.addEventListener('touchstart', e => {
+            const t = e.touches[0];
+            if(t.clientX > window.innerWidth / 2) { lastTouchX = t.clientX; lastTouchY = t.clientY; }
+        });
+        renderer.domElement.addEventListener('touchmove', e => {
+            const t = e.touches[0];
+            if(t.clientX > window.innerWidth / 2) {
+                const dx = t.clientX - lastTouchX, dy = t.clientY - lastTouchY;
+                player.rotationY -= dx * 0.0055;
+                player.pitch -= dy * 0.0055;
+                player.pitch = Math.max(-0.6, Math.min(0.5, player.pitch));
+                lastTouchX = t.clientX; lastTouchY = t.clientY;
             }
         });
+
+        document.getElementById('btn-fire').addEventListener('click', fire);
+        document.getElementById('btn-scope').addEventListener('click', toggleScope);
+        document.getElementById('btn-jump').addEventListener('click', jump);
+        document.getElementById('btn-crouch').addEventListener('click', toggleCrouch);
+        document.getElementById('btn-reload').addEventListener('click', reloadWeapon);
+        document.getElementById('btn-grenade').addEventListener('click', throwGrenade);
+        document.getElementById('btn-medkit').addEventListener('click', () => {
+            player.hp = Math.min(player.maxHp, player.hp + 75);
+            updateHUD();
+        });
+
+        function jump() {
+            if(player.isGrounded) {
+                player.velocity.y = 8.5;
+                player.isGrounded = false;
+                playAnimation('jump', 0.15, true);
+            }
+        }
+        function toggleCrouch() {
+            player.isCrouching = !player.isCrouching;
+            player.group.scale.y = player.isCrouching ? 0.72 : 1.0;
+        }
+        function toggleScope() {
+            player.isScoped = !player.isScoped;
+            camera.fov = player.isScoped ? 28 : 58;
+            camera.updateProjectionMatrix();
+            document.getElementById('scope-overlay').style.display = player.isScoped ? 'block' : 'none';
+        }
+        function reloadWeapon() {
+            if(player.ammo === player.maxAmmo || player.reserveAmmo <= 0) return;
+            sfx.reload();
+            playAnimation('reload', 0.15, true);
+            document.getElementById('clip-val').innerText = "--";
+            setTimeout(() => {
+                player.ammo = 30; player.reserveAmmo -= 30; updateHUD();
+            }, 1000);
+        }
+
+        const raycaster = new THREE.Raycaster();
+        function fire() {
+            if(player.ammo <= 0) return reloadWeapon();
+            player.ammo--;
+            updateHUD();
+            sfx.gunshot();
+            playAnimation('fire', 0.08, true);
+
+            if(player.weaponHolder) {
+                player.weaponHolder.position.z -= 0.05;
+                setTimeout(() => { if(player.weaponHolder) player.weaponHolder.position.z += 0.05; }, 50);
+            }
+
+            raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+            const targets = [];
+            enemies.forEach(b => {
+                if(b.userData.alive) {
+                    const hits = raycaster.intersectObjects(b.children);
+                    if(hits.length > 0) targets.push({ bot: b, hit: hits[0] });
+                }
+            });
+
+            if(targets.length > 0) {
+                const t = targets[0];
+                const isHead = t.hit.point.y > (t.bot.position.y + 1.8);
+                const dmg = isHead ? 150 : 35;
+                t.bot.userData.hp -= dmg;
+                sfx.hit(isHead);
+
+                const d = document.createElement('div');
+                d.className = 'damage-number';
+                d.innerText = isHead ? `${dmg} HEADSHOT!` : dmg;
+                d.style.color = isHead ? '#ff0033' : '#ffcc00';
+                d.style.left = `${window.innerWidth/2 + (Math.random()*40-20)}px`;
+                d.style.top = `${window.innerHeight/2 - 40}px`;
+                document.body.appendChild(d);
+                setTimeout(() => d.remove(), 600);
+
+                if(t.bot.userData.hp <= 0 && t.bot.userData.alive) {
+                    t.bot.userData.alive = false;
+                    player.kills++;
+                    scene.remove(t.bot);
+                    document.getElementById('kill-count').innerText = player.kills;
+                    const rem = enemies.filter(e => e.userData.alive).length;
+                    document.getElementById('alive-count').innerText = rem;
+                    if(rem === 0) alert("BOOYAH! VICTORY ROYALE!");
+                }
+            }
+        }
+
+        function updateHUD() {
+            document.getElementById('hp-fill').style.width = `${(player.hp/player.maxHp)*100}%`;
+            document.getElementById('hp-val').innerText = Math.max(0, Math.floor(player.hp));
+            document.getElementById('ep-fill').style.width = `${(player.ep/player.maxEp)*100}%`;
+            document.getElementById('clip-val').innerText = player.ammo;
+            document.getElementById('reserve-val').innerText = player.reserveAmmo;
+        }
+
+        const radarCanvas = document.getElementById('radar-canvas');
+        const radarCtx = radarCanvas.getContext('2d');
+        function drawRadar() {
+            radarCtx.clearRect(0,0,95,95);
+            radarCtx.fillStyle = '#00ff66';
+            radarCtx.beginPath(); radarCtx.arc(47,47,3.5,0,Math.PI*2); radarCtx.fill();
+
+            enemies.forEach(e => {
+                if(!e.userData.alive) return;
+                const rx = (e.position.x - player.group.position.x) * 0.5;
+                const rz = (e.position.z - player.group.position.z) * 0.5;
+                if(Math.hypot(rx, rz) < 42) {
+                    radarCtx.fillStyle = '#ff2200';
+                    radarCtx.beginPath(); radarCtx.arc(47+rx, 47+rz, 3, 0, Math.PI*2); radarCtx.fill();
+                }
+            });
+        }
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = Math.min(clock.getDelta(), 0.05);
+
+            if(player.mixer) player.mixer.update(delta);
+
+            // --- A & D BUTTONS SWAPPED ---
+            const moveVec = new THREE.Vector3();
+            if(keys['KeyW'] || keys['ArrowUp']) moveVec.z += 1;   // W = Forward
+            if(keys['KeyS'] || keys['ArrowDown']) moveVec.z -= 1; // S = Backward
+            if(keys['KeyA'] || keys['ArrowLeft']) moveVec.x += 1; // A = Swapped with D
+            if(keys['KeyD'] || keys['ArrowRight']) moveVec.x -= 1; // D = Swapped with A
+
+            if(joyActive) { moveVec.x -= joyDir.x; moveVec.z += joyDir.y; }
+
+            const isMoving = moveVec.lengthSq() > 0.05;
+            if(isMoving) {
+                moveVec.normalize();
+                const forward = new THREE.Vector3(Math.sin(player.rotationY), 0, Math.cos(player.rotationY));
+                const right = new THREE.Vector3(Math.cos(player.rotationY), 0, -Math.sin(player.rotationY));
+                const dir = new THREE.Vector3().addScaledVector(forward, moveVec.z).addScaledVector(right, moveVec.x).normalize();
+                
+                const moveDist = player.speed * delta;
+
+                if (!checkWallCollision(player.group.position, dir, moveDist)) {
+                    player.group.position.addScaledVector(dir, moveDist);
+                } else {
+                    const dirX = new THREE.Vector3(dir.x, 0, 0).normalize();
+                    const dirZ = new THREE.Vector3(0, 0, dir.z).normalize();
+                    if (Math.abs(dir.x) > 0.1 && !checkWallCollision(player.group.position, dirX, Math.abs(dir.x * moveDist))) {
+                        player.group.position.x += dir.x * moveDist;
+                    } else if (Math.abs(dir.z) > 0.1 && !checkWallCollision(player.group.position, dirZ, Math.abs(dir.z * moveDist))) {
+                        player.group.position.z += dir.z * moveDist;
+                    }
+                }
+
+                if (player.currentAnim !== 'fire' && player.currentAnim !== 'reload' && player.currentAnim !== 'grenade' && player.currentAnim !== 'jump') {
+                    if (moveVec.z < -0.2 && player.actions['run_back']) {
+                        playAnimation('run_back');
+                    } else if (moveVec.x > 0.5 && player.actions['strafe_left']) {
+                        playAnimation('strafe_left');
+                    } else if (moveVec.x < -0.5 && player.actions['strafe_right']) {
+                        playAnimation('strafe_right');
+                    } else if (keys['ShiftLeft'] && player.actions['run']) {
+                        playAnimation('run');
+                    } else if (player.actions['walk']) {
+                        playAnimation('walk');
+                    } else if (player.actions['run']) {
+                        playAnimation('run');
+                    }
+                }
+            } else {
+                if (player.currentAnim !== 'fire' && player.currentAnim !== 'reload' && player.currentAnim !== 'grenade' && player.currentAnim !== 'jump') {
+                    playAnimation('idle');
+                }
+            }
+
+            player.velocity.y -= 19.6 * delta;
+            player.group.position.y += player.velocity.y * delta;
+            if(player.group.position.y <= 0) {
+                player.group.position.y = 0; player.velocity.y = 0; player.isGrounded = true;
+            }
+
+            player.group.rotation.y = player.rotationY;
+
+            // --- WEAPON SYNC (AIM FORWARD TOWARDS CROSSHAIR) ---
+            if (player.rightHandBone && player.weaponHolder) {
+                const worldHand = new THREE.Vector3();
+                player.rightHandBone.getWorldPosition(worldHand);
+                player.group.worldToLocal(worldHand);
+                player.weaponHolder.position.copy(worldHand);
+                player.weaponHolder.rotation.x = player.pitch;
+            }
+
+            // --- BACK-SIDE OVER-THE-SHOULDER CAMERA ---
+            const camDist = player.isScoped ? 1.3 : 2.7;
+            const camH = player.isCrouching ? 1.25 : 1.6;
+            
+            const camOffset = new THREE.Vector3(0.55, camH, -camDist);
+            camOffset.applyAxisAngle(new THREE.Vector3(1, 0, 0), player.pitch);
+            camOffset.applyAxisAngle(new THREE.Vector3(0, 1, 0), player.rotationY);
+
+            camera.position.copy(player.group.position).add(camOffset);
+            
+            const forwardLook = new THREE.Vector3(Math.sin(player.rotationY), 0, Math.cos(player.rotationY));
+            const lookTarget = player.group.position.clone()
+                .add(new THREE.Vector3(0.2, 1.45, 0))
+                .addScaledVector(forwardLook, 8);
+            camera.lookAt(lookTarget);
+
+            // Grenades Physics
+            for (let i = activeGrenades.length - 1; i >= 0; i--) {
+                const g = activeGrenades[i];
+                g.vel.y -= 18.0 * delta;
+                g.mesh.position.addScaledVector(g.vel, delta);
+                if (g.mesh.position.y <= 0.15) {
+                    g.mesh.position.y = 0.15;
+                    g.vel.y *= -0.4; g.vel.x *= 0.7; g.vel.z *= 0.7;
+                }
+                g.timer -= delta;
+                if (g.timer <= 0) {
+                    sfx.explosion();
+                    enemies.forEach(b => {
+                        if (b.userData.alive && b.position.distanceTo(g.mesh.position) < 14) {
+                            b.userData.hp -= 120;
+                            if (b.userData.hp <= 0) {
+                                b.userData.alive = false; player.kills++;
+                                scene.remove(b);
+                                document.getElementById('kill-count').innerText = player.kills;
+                            }
+                        }
+                    });
+                    scene.remove(g.mesh);
+                    activeGrenades.splice(i, 1);
+                }
+            }
+
+            // Enemy AI
+            enemies.forEach(b => {
+                if(!b.userData.alive) return;
+                const dist = b.position.distanceTo(player.group.position);
+                if(dist < 45 && dist > 5) {
+                    b.lookAt(player.group.position.x, b.position.y, player.group.position.z);
+                    b.translateZ(3.2 * delta);
+                }
+                b.userData.shootCd -= delta;
+                if(b.userData.shootCd <= 0 && dist < 30) {
+                    b.userData.shootCd = 2.0 + Math.random()*2;
+                    player.hp -= 15;
+                    sfx.gunshot();
+                    playAnimation('hit', 0.1, true);
+                    updateHUD();
+
+                    const dmgFlash = document.getElementById('hit-damage');
+                    dmgFlash.style.display = 'block';
+                    setTimeout(() => dmgFlash.style.display = 'none', 120);
+
+                    if(player.hp <= 0) {
+                        alert("ELIMINATED! Game Over.");
+                        location.reload();
+                    }
+                }
+            });
+
+            drawRadar();
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        updateHUD();
+        animate();
     </script>
 </body>
 </html>
